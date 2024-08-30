@@ -18,7 +18,7 @@ function jwtGenerator(user_id: string) {
         throw new Error("JWT_SECRET is not defined in the environment variables");
       }
 
-    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1hr" });
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 }
 
 export default jwtGenerator;
