@@ -1,12 +1,13 @@
 import express, { Request, Response } from "express";
-import { pool } from "../src/index.js";
+import { pool } from "../index";
 import bcrypt from "bcrypt";
 import jwtGenerator from "../utils/jwtGenerator.js";
+import validateInfo from "../middleware/validateInfo.js"
 
 const router = express.Router();
 
 //Register
-router.post("/register", async (req: Request, res: Response) => {
+router.post("/register", validateInfo, async (req: Request, res: Response) => {
 
     const [ name, email, password ] = req.body;
 
