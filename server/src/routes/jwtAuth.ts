@@ -3,6 +3,7 @@ import { pool } from "../index";
 import bcrypt from "bcrypt";
 import jwtGenerator from "../utils/jwtGenerator.js";
 import validateInfo from "../middleware/validateInfo.js"
+import authMiddleware from "../middleware/authorise";
 
 const router = express.Router();
 
@@ -37,6 +38,49 @@ router.post("/register", validateInfo, async (req: Request, res: Response) => {
 
 });
 
-router.post("/login", async (req: Request, res: Response) => {});
+router.post("/login", validateInfo, async (req: Request, res: Response) => {
+    const { email, password } = req.body as { email: string; password: string };
 
-router.post("/verify", async (req: Request, res: Response) => {});
+    try {
+        interface User {
+            user_id: string;
+            user_email: string;
+            user_password: string;
+        }
+
+        const user = await pool.query<User>("SELECT * FROM users WHERE user_email = $1", [email]);
+
+        if (user.rows.length === 0) {
+            return res.status(401).json("Password or Email is incorrect");
+        }
+
+        // Check if incoming password is correct
+        const validPassword = await bcrypt.compare(password, user.rows[0].user_password);
+        if (!validPassword) {
+            return res.status(401).json("Password or Email is incorrect");
+        }
+
+        // Give them the JWT token
+        const jwtToken = jwtGenerator(user.rows[0].user_id);
+        return res.json({ jwtToken });
+
+    } catch (error) {
+        console.error((error as Error).message);
+        res.status(500).send("Server Error");
+    }
+});
+
+router.post("/verify", authMiddleware, async (req: Request, res: Response) => {
+    try {
+        res.json(true);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.log(error.message);
+        } else {
+            console.log('An unknown error occurred');
+        }
+        res.status(500).send("Server Error");
+    }
+});
+
+export default router;
