@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import 'dotenv/config';
+import 'dotenv/config'
+
 
 interface UserPayload {
     user: {
@@ -7,10 +8,10 @@ interface UserPayload {
     };
 }
 
-function jwtGenerator(user_id: string) {
+function jwtGenerator(id: string) {
     const payload: UserPayload = {
         user: {
-            id: user_id
+            id: id
         }
     };
 

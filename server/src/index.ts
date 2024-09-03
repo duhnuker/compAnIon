@@ -20,6 +20,7 @@ export const pool = new Pool({
     port: 5432
 });
 
+
 app.use("/auth", jwtAuth);
 
 app.use("/dashboard", dashboard);

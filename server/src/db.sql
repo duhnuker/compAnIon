@@ -1,6 +1,6 @@
 CREATE DATABASE compAnIon
 
-CREATE EXTENSION IF NOT EXISTS 'uuid-ossp';
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE Users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -10,6 +10,8 @@ CREATE TABLE Users (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+
+-- INSERT INTO Users (name, email, password) VALUES ('Dinuka', 'dinuka@gmail.com', 'dinuka123');
 
 CREATE TABLE JournalEntries (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
