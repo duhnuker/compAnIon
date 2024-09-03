@@ -37,3 +37,26 @@ router.post("/journalentry", authorise, async (req: Request & { user?: { id: str
   }
 });
 
+//Edit a journal entry
+router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: string } }, res: Response) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "Unauthorised" });
+    }
+
+    const { journalEntry } = req.body;
+    const { id } = req.params;
+    const editJournalEntry = await pool.query("UPDATE journalentries SET entry_text = $1 WHERE id = $2 AND user_id = $3 RETURNING *", [journalEntry, id, req.user.id])
+
+    if (editJournalEntry.rows.length === 0) {
+      return res.json("This journal entry is not yours");
+    }
+
+    res.json("Journal Entry was updated");
+
+  } catch (error: unknown) {
+    console.error(error instanceof Error ? error.message : "Unknown error");
+  }
+});
+
+export default router;
