@@ -9,7 +9,7 @@ interface JwtPayload {
     };
 }
 
-    const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    export default (req: Request, res: Response, next: NextFunction) => {
 
     const token = req.header("jwt_token");
 
@@ -30,5 +30,3 @@ interface JwtPayload {
         return res.status(403).json({ msg: "Token is not valid" });
     }
 };
-
-export default authMiddleware;

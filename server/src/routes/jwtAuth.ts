@@ -3,7 +3,7 @@ import { pool } from "../index";
 import bcrypt from "bcrypt";
 import jwtGenerator from "../utils/jwtGenerator";
 import validateInfo from "../middleware/validateInfo"
-import authMiddleware from "../middleware/authorise";
+import authorise from "../middleware/authorise";
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.post("/register", validateInfo, async (req: Request, res: Response) => {
 
     try {
         
-        const user = await pool.query("SELECT * FROM Users WHERE email = $1", [email]);
+        const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
 
         //Check if user already exists
         if (user.rows.length > 0) {
@@ -33,7 +33,7 @@ router.post("/register", validateInfo, async (req: Request, res: Response) => {
         const bcryptPassword = await bcrypt.hash(password, salt);
 
         //Add new user to database
-        let newUser = await pool.query("INSERT INTO Users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [name, email, bcryptPassword]);
+        let newUser = await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [name, email, bcryptPassword]);
 
         const jwtToken = jwtGenerator(newUser.rows[0].id);
         return res.json({ jwtToken });
@@ -53,7 +53,7 @@ router.post("/login", validateInfo, async (req: Request, res: Response) => {
 
     try {
         
-        const user = await pool.query<User>("SELECT * FROM Users WHERE email = $1", [email]);
+        const user = await pool.query<User>("SELECT * FROM users WHERE email = $1", [email]);
 
         if (user.rows.length === 0) {
             return res.status(401).json("Password or Email is incorrect");
@@ -75,7 +75,7 @@ router.post("/login", validateInfo, async (req: Request, res: Response) => {
     }
 });
 
-router.post("/verify", authMiddleware, async (req: Request, res: Response) => {
+router.post("/verify", authorise, async (req: Request, res: Response) => {
     try {
         res.json(true);
     } catch (error: unknown) {
