@@ -59,4 +59,24 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
   }
 });
 
+router.delete("/journalentry/:id", authorise, async (req: Request & { user?: { id: string } }, res: Response) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: "Unauthorised" });
+    }
+
+    const { id } = req.params;
+    const deleteJournalEntry = await pool.query("DELETE FROM journalentries WHERE id = $1 AND user_id = $2 RETURNING *", [id, req.user.id]);
+
+    if (deleteJournalEntry.rows.length === 0) {
+      return res.json("This journal entry is not yours");
+    }
+
+    res.json("Journal entry was deleted");
+
+  } catch (error: unknown) {
+    console.error(error instanceof Error ? error.message : "Unknown error");
+  }
+});
+
 export default router;
