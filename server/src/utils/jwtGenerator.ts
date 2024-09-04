@@ -8,10 +8,10 @@ interface UserPayload {
     };
 }
 
-function jwtGenerator(id: string) {
+function jwtGenerator(user_id: string) {
     const payload: UserPayload = {
         user: {
-            id: id
+            id: user_id
         }
     };
 

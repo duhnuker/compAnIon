@@ -9,8 +9,8 @@ const router = express.Router();
 
 interface User {
     id: string;
-    email: string;
-    password: string;
+    user_email: string;
+    user_password: string;
 }
 
 
@@ -21,11 +21,11 @@ router.post("/register", validateInfo, async (req: Request, res: Response) => {
 
     try {
         
-        const user = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+        const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [email]);
 
         //Check if user already exists
         if (user.rows.length > 0) {
-            return res.status(401).send("User already exists");
+            return res.status(409).send("User already exists");
         }
 
         //Bcrypt user password
@@ -33,7 +33,7 @@ router.post("/register", validateInfo, async (req: Request, res: Response) => {
         const bcryptPassword = await bcrypt.hash(password, salt);
 
         //Add new user to database
-        let newUser = await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *", [name, email, bcryptPassword]);
+        let newUser = await pool.query("INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *", [name, email, bcryptPassword]);
 
         const jwtToken = jwtGenerator(newUser.rows[0].id);
         return res.json({ jwtToken });
@@ -53,14 +53,14 @@ router.post("/login", validateInfo, async (req: Request, res: Response) => {
 
     try {
         
-        const user = await pool.query<User>("SELECT * FROM users WHERE email = $1", [email]);
+        const user = await pool.query<User>("SELECT * FROM users WHERE user_email = $1", [email]);
 
         if (user.rows.length === 0) {
             return res.status(401).json("Password or Email is incorrect");
         }
 
         // Check if incoming password is correct
-        const validPassword = await bcrypt.compare(password, user.rows[0].password);
+        const validPassword = await bcrypt.compare(password, user.rows[0].user_password);
         if (!validPassword) {
             return res.status(401).json("Password or Email is incorrect");
         }
@@ -78,11 +78,12 @@ router.post("/login", validateInfo, async (req: Request, res: Response) => {
 router.post("/verify", authorise, async (req: Request, res: Response) => {
     try {
         res.json(true);
+        console.error("User verified");
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.log(error.message);
+            console.error(error.message);
         } else {
-            console.log('An unknown error occurred');
+            console.error('An unknown error occurred');
         }
         res.status(500).send("Server Error");
     }

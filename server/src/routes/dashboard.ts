@@ -12,8 +12,8 @@ router.get("/", authorise, async (req: Request & { user?: { id: string } }, res:
       return res.status(401).json({ message: "Unauthorised" });
     }
 
-    const user = await pool.query("SELECT name FROM users WHERE id = $1", [req.user.id]);
-    res.json(user.rows[0]);
+    const user = await pool.query("SELECT users.user_id, journalentries.journalentry_id, journalentries.journalentry_text FROM users LEFT JOIN journalentries ON users.user_id = journalentries.user_id WHERE users.user_id = $1", [req.user.id]);
+    res.json(user.rows);
 
   } catch (error: unknown) {
     console.error(error instanceof Error ? error.message : "Unknown error");
@@ -29,7 +29,7 @@ router.post("/journalentry", authorise, async (req: Request & { user?: { id: str
     }
 
     const { journalEntry } = req.body;
-    const newJournalEntry = await pool.query("INSERT INTO journalentries (user_id, entry_text) VALUES ($1, $2) RETURNING *", [req.user.id, journalEntry]);
+    const newJournalEntry = await pool.query("INSERT INTO journalentries (user_id, journalentry_text) VALUES ($1, $2) RETURNING *", [req.user.id, journalEntry]);
 
     res.json(newJournalEntry.rows[0]);
   } catch (error: unknown) {
@@ -46,7 +46,7 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
 
     const { journalEntry } = req.body;
     const { id } = req.params;
-    const editJournalEntry = await pool.query("UPDATE journalentries SET entry_text = $1 WHERE id = $2 AND user_id = $3 RETURNING *", [journalEntry, id, req.user.id])
+    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1 WHERE id = $2 AND user_id = $3 RETURNING *", [journalEntry, id, req.user.id])
 
     if (editJournalEntry.rows.length === 0) {
       return res.json("This journal entry is not yours");
@@ -59,6 +59,7 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
   }
 });
 
+//Delete a journal entry
 router.delete("/journalentry/:id", authorise, async (req: Request & { user?: { id: string } }, res: Response) => {
   try {
     if (!req.user || !req.user.id) {
@@ -66,7 +67,7 @@ router.delete("/journalentry/:id", authorise, async (req: Request & { user?: { i
     }
 
     const { id } = req.params;
-    const deleteJournalEntry = await pool.query("DELETE FROM journalentries WHERE id = $1 AND user_id = $2 RETURNING *", [id, req.user.id]);
+    const deleteJournalEntry = await pool.query("DELETE FROM journalentries WHERE journalentry_id = $1 AND user_id = $2 RETURNING *", [id, req.user.id]);
 
     if (deleteJournalEntry.rows.length === 0) {
       return res.json("This journal entry is not yours");
