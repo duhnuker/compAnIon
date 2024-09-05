@@ -34,6 +34,7 @@ router.post("/journalentry", authorise, async (req: Request & { user?: { id: str
     res.json(newJournalEntry.rows[0]);
   } catch (error: unknown) {
     console.error(error instanceof Error ? error.message : "Unknown error");
+    res.status(500).json({ error: "An error occurred while creating the journal entry"});
   }
 });
 
@@ -45,17 +46,18 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
     }
 
     const { journalEntry } = req.body;
-    const { id } = req.params;
-    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1 WHERE id = $2 AND user_id = $3 RETURNING *", [journalEntry, id, req.user.id])
+    const { journalEntryId } = req.params;
+    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1 WHERE journalentry_id = $2 AND user_id = $3 RETURNING *", [journalEntry, journalEntryId, req.user.id]);
 
     if (editJournalEntry.rows.length === 0) {
-      return res.json("This journal entry is not yours");
+      return res.status(404).json({ message: "This journal entry is not yours or does not exist" });
     }
 
-    res.json("Journal Entry was updated");
+    res.json({ message: "Journal Entry was updated" });
 
   } catch (error: unknown) {
     console.error(error instanceof Error ? error.message : "Unknown error");
+    res.status(500).json({ message: "Server Error" });
   }
 });
 

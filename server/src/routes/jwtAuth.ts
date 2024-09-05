@@ -8,7 +8,7 @@ import authorise from "../middleware/authorise";
 const router = express.Router();
 
 interface User {
-    id: string;
+    user_id: string;
     user_email: string;
     user_password: string;
 }
@@ -35,7 +35,7 @@ router.post("/register", validateInfo, async (req: Request, res: Response) => {
         //Add new user to database
         let newUser = await pool.query("INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *", [name, email, bcryptPassword]);
 
-        const jwtToken = jwtGenerator(newUser.rows[0].id);
+        const jwtToken = jwtGenerator(newUser.rows[0].user_id);
         return res.json({ jwtToken });
 
     } catch (error: unknown) {
@@ -66,7 +66,7 @@ router.post("/login", validateInfo, async (req: Request, res: Response) => {
         }
 
         // Give them the JWT token
-        const jwtToken = jwtGenerator(user.rows[0].id);
+        const jwtToken = jwtGenerator(user.rows[0].user_id);
         return res.json({ jwtToken });
 
     } catch (error) {
