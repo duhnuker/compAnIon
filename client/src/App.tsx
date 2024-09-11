@@ -5,7 +5,7 @@ import axios from "axios";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,6 +46,6 @@ function App() {
       </Routes>
     </Router>
   );
-}
 
+}
 export default App;
