@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import InputEntry from './journal/InputEntry';
 import ListEntries from './journal/ListEntries';
@@ -54,15 +55,29 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   }, [journalEntriesUpdate]);
 
   return (
-    <div>
-      <div>
-        <h1>Welcome {name}</h1>
-        <InputEntry setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)} />
-        <ListEntries allJournalEntries={allJournalEntries} setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)} />
-        <button
-          onClick={e => logout(e)}>
-          Logout
-        </button>
+    <div className='text-white h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2'>
+      <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
+        <div></div>
+        <div className='flex flex-col items-center justify-center'>
+          <h1 className='text-white text-5xl'>Welcome, <span className='text-red-800'>{name}</span></h1>
+        </div>
+        <div></div>
+        <div></div>
+        <div className='flex flex-col items-center justify-center'>
+          <InputEntry setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)} />
+          <ListEntries allJournalEntries={allJournalEntries} setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)} />
+        </div>
+        <div></div>
+        <div></div>
+        <div className='text-white flex justify-center items-center'>
+          <button
+            onClick={e => logout(e)}
+            className='py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300'
+          >
+            Logout
+          </button>
+        </div>
+        <div></div>
       </div>
     </div>
   )

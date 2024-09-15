@@ -33,7 +33,7 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
 
     return (
         <div>
-           <button type='button' onClick={() => editJournalEntry(journalEntry.journalentry_text)}></button>
+           <button type='button' onClick={() => editJournalEntry(journalEntry.journalentry_text)}>Edit</button>
         </div>
     )
 }

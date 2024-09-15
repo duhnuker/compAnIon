@@ -16,7 +16,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
                 }
             );
             
-            setJournalEntries(journalEntries.filter((journalEntry: { journalEntry_id: string }) => journalEntry.journalEntry_id !== id));
+            setJournalEntries(journalEntries.filter((journalEntry: { journalentry_id: string }) => journalEntry.journalentry_id !== id));
 
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -43,17 +43,17 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
         </thead>
         <tbody>
           {journalEntries.length !== 0 &&
-            journalEntries[0].journalentry_id_id !== null &&
+            journalEntries[0].journalentry_id !== null &&
             journalEntries.map(journalEntry => (
-              <tr key={journalEntry.journalEntry_id}>
-                <td>{journalEntry.description}</td>
+              <tr key={journalEntry.journalentry_id}>
+                <td>{journalEntry.journalentry_text}</td>
                 <td>
                   <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
                 </td>
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => deleteJournalEntry(journalEntry.journalEntry_id)}
+                    onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
                   >
                     Delete
                   </button>
