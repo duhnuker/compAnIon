@@ -12,7 +12,7 @@ router.get("/", authorise, async (req: Request & { user?: { id: string } }, res:
       return res.status(401).json({ message: "Unauthorised" });
     }
 
-    const user = await pool.query("SELECT users.user_id, journalentries.journalentry_id, journalentries.journalentry_text FROM users LEFT JOIN journalentries ON users.user_id = journalentries.user_id WHERE users.user_id = $1", [req.user.id]);
+    const user = await pool.query("SELECT users.user_name, users.user_id, journalentries.journalentry_id, journalentries.journalentry_text FROM users LEFT JOIN journalentries ON users.user_id = journalentries.user_id WHERE users.user_id = $1", [req.user.id]);
     res.json(user.rows);
 
   } catch (error: unknown) {
@@ -45,9 +45,9 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
       return res.status(401).json({ message: "Unauthorised" });
     }
 
-    const { journalEntry } = req.body;
-    const { journalEntryId } = req.params;
-    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1 WHERE journalentry_id = $2 AND user_id = $3 RETURNING *", [journalEntry, journalEntryId, req.user.id]);
+    const { journalentry_text } = req.body;
+    const { id } = req.params;
+    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1 WHERE journalentry_id = $2 AND user_id = $3 RETURNING *", [journalentry_text, id, req.user.id]);
 
     if (editJournalEntry.rows.length === 0) {
       return res.status(404).json({ message: "This journal entry is not yours or does not exist" });
@@ -56,6 +56,7 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
     res.json({ message: "Journal Entry was updated" });
 
   } catch (error: unknown) {
+    console.error("Detailed error:", error);
     console.error(error instanceof Error ? error.message : "Unknown error");
     res.status(500).json({ message: "Server Error" });
   }

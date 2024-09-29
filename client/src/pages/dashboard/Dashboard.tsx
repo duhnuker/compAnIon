@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 import InputEntry from './journal/InputEntry';
 import ListEntries from './journal/ListEntries';
@@ -59,7 +58,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
       <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
         <div></div>
         <div className='flex flex-col items-center justify-center'>
-          <h1 className='text-white text-5xl'>Welcome, <span className='text-red-800'>{name}</span></h1>
+          <h1 className='text-white text-5xl'>Welcome, <span className='text-white'>{name}</span></h1>
         </div>
         <div></div>
         <div></div>
