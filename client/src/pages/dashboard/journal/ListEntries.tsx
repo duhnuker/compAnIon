@@ -37,6 +37,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
         <thead>
           <tr>
             <th>Description</th>
+            <th>Mood</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -47,6 +48,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
             journalEntries.map(journalEntry => (
               <tr key={journalEntry.journalentry_id}>
                 <td>{journalEntry.journalentry_text}</td>
+                <td>{journalEntry.journalentry_mood}</td>
                 <td>
                   <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
                 </td>
