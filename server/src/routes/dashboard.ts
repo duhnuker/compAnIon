@@ -1,7 +1,8 @@
 import express, { Request, Response, Router } from "express";
 import { Pool, QueryResult } from "pg";
-import { pool } from "../index";
-import authorise from "../middleware/authorise";
+import { pool } from "../index.js";
+import authorise from "../middleware/authorise.js";
+import { analyseSentiment } from "../ai/sentimentAnalyser.js";
 
 const router: Router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/", authorise, async (req: Request & { user?: { id: string } }, res:
       return res.status(401).json({ message: "Unauthorised" });
     }
 
-    const user = await pool.query("SELECT users.user_name, users.user_id, journalentries.journalentry_id, journalentries.journalentry_text FROM users LEFT JOIN journalentries ON users.user_id = journalentries.user_id WHERE users.user_id = $1", [req.user.id]);
+    const user = await pool.query("SELECT users.user_name, users.user_id, journalentries.journalentry_id, journalentries.journalentry_text, journalentries.journalentry_mood FROM users LEFT JOIN journalentries ON users.user_id = journalentries.user_id WHERE users.user_id = $1", [req.user.id]);
     res.json(user.rows);
 
   } catch (error: unknown) {
@@ -29,7 +30,11 @@ router.post("/journalentry", authorise, async (req: Request & { user?: { id: str
     }
 
     const { journalEntry } = req.body;
-    const newJournalEntry = await pool.query("INSERT INTO journalentries (user_id, journalentry_text) VALUES ($1, $2) RETURNING *", [req.user.id, journalEntry]);
+
+    //Journal Entry sentiment analysis
+    const entryMood = await analyseSentiment(journalEntry);
+
+    const newJournalEntry = await pool.query("INSERT INTO journalentries (user_id, journalentry_text, journalentry_mood) VALUES ($1, $2, $3) RETURNING *", [req.user.id, journalEntry, entryMood.label]);
 
     res.json(newJournalEntry.rows[0]);
   } catch (error: unknown) {
@@ -47,7 +52,11 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
 
     const { journalentry_text } = req.body;
     const { id } = req.params;
-    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1 WHERE journalentry_id = $2 AND user_id = $3 RETURNING *", [journalentry_text, id, req.user.id]);
+
+    //Updated text sentiment analysis
+    const entryMood = await analyseSentiment(journalentry_text);
+
+    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1, journalentry_mood = $4 WHERE journalentry_id = $2 AND user_id = $3 RETURNING *", [journalentry_text, id, req.user.id, entryMood.label]);
 
     if (editJournalEntry.rows.length === 0) {
       return res.status(404).json({ message: "This journal entry is not yours or does not exist" });

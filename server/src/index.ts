@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import { Pool } from 'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 import 'dotenv/config';
-import jwtAuth from "./routes/jwtAuth";
-import dashboard from './routes/dashboard';
+import jwtAuth from "./routes/jwtAuth.js";
+import dashboard from './routes/dashboard.js';
 
 
 const app = express();

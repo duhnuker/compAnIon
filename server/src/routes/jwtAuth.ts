@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import { pool } from "../index";
+import { pool } from "../index.js";
 import bcrypt from "bcrypt";
-import jwtGenerator from "../utils/jwtGenerator";
-import validateInfo from "../middleware/validateInfo"
-import authorise from "../middleware/authorise";
+import jwtGenerator from "../utils/jwtGenerator.js";
+import validateInfo from "../middleware/validateInfo.js"
+import authorise from "../middleware/authorise.js";
 
 const router = express.Router();
 
