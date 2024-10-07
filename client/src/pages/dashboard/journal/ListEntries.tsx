@@ -46,7 +46,13 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
             journalEntries.map(journalEntry => (
               <tr key={journalEntry.journalentry_id}>
                 <td className='pr-10'>{journalEntry.journalentry_text}</td>
-                <td>{journalEntry.journalentry_mood}</td>
+                <td>{journalEntry.journalentry_mood}
+                  <img
+                  src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
+                  alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
+                  className='w-6 h-6 inline-block ml-2'
+                  />
+                </td>
                 <td className='pl-10 pr-1'>
                   <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
                 </td>
