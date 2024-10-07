@@ -32,14 +32,12 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
     }, [allJournalEntries]);
     
   return (
-    <div>
+    <div className='animate-fade animate-delay-1000'>
          <table className="table mt-5">
         <thead>
           <tr>
-            <th>Description</th>
-            <th>Mood</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th className='text-lg pr-10'>Description</th>
+            <th className='text-lg pr-1'>Mood</th>
           </tr>
         </thead>
         <tbody>
@@ -47,14 +45,14 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
             journalEntries[0].journalentry_id !== null &&
             journalEntries.map(journalEntry => (
               <tr key={journalEntry.journalentry_id}>
-                <td>{journalEntry.journalentry_text}</td>
+                <td className='pr-10'>{journalEntry.journalentry_text}</td>
                 <td>{journalEntry.journalentry_mood}</td>
-                <td>
+                <td className='pl-10 pr-1'>
                   <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
                 </td>
                 <td>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-danger border-2 p-0.5 rounded-md"
                     onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
                   >
                     Delete

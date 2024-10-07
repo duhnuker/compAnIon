@@ -34,7 +34,7 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
 
     return (
         <div>
-            <button onClick={() => setIsModalOpen(true)}>Edit</button>
+            <button className='border-2 p-0.5 rounded-md' onClick={() => setIsModalOpen(true)}>Edit</button>
             
             {isModalOpen && (
                 <div className="modal">

@@ -44,10 +44,10 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
       <div className='h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 flex items-center justify-center'>
         <div className='flex justify-evenly w-full'>
           <div>
-            <h1 className='text-5xl pb-20 text-midnightp2 font-bold'>Join us,</h1>
+            <h1 className='text-5xl pb-20 text-white font-bold animate-fade-down'>Join us,</h1>
             <form onSubmit={onSubmitForm}>
               <input
-                className='mt-4 rounded-lg bg-black text-white'
+                className='mt-4 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
                 type='text'
                 name='name'
                 placeholder='Full Name'
@@ -56,7 +56,7 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
               />
               <br />
               <input
-                className='mt-4 rounded-lg bg-black text-white'
+                className='mt-4 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
                 type='email'
                 name='email'
                 placeholder='Email'
@@ -65,7 +65,7 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
               />
               <br />
               <input
-                className='mt-4 rounded-lg bg-black text-white'
+                className='mt-4 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
                 type='password'
                 name='password'
                 placeholder='Password'
@@ -73,11 +73,11 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
                 onChange={e => onChange(e)}
               />
               <div>
-                <button className='mt-3 py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300'>Register</button>
+                <button className='mt-3 py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300 animate-fade-up animate-delay-500'>Register</button>
               </div>
             </form>
-            <p className='text-white pt-10'>Already have an account?</p>
-            <div className='text-white pt-4'>
+            <p className='text-white pt-10 animate-fade-up animate-delay-500'>Already have an account?</p>
+            <div className='text-white pt-4 animate-fade-up animate-delay-500'>
               <Link to="/login" className='py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300'>Login here!</Link>
             </div>
           </div>

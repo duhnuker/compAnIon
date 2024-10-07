@@ -58,7 +58,8 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
       <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
         <div></div>
         <div className='flex flex-col items-center justify-center'>
-          <h1 className='text-white text-5xl'>Welcome, <span className='text-white'>{name}</span></h1>
+          <h1 className='text-white text-5xl animate-fade-down'>Welcome, <span className='text-white'>{name}</span></h1>
+          <h2 className='mt-20 text-lg animate-fade animate-delay-1000'>How you are feeling?</h2>
         </div>
         <div></div>
         <div></div>
@@ -71,7 +72,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
         <div className='text-white flex justify-center items-center'>
           <button
             onClick={e => logout(e)}
-            className='py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300'
+            className='py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300 animate-fade animate-delay-1000'
           >
             Logout
           </button>
