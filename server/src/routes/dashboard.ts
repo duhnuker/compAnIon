@@ -13,7 +13,7 @@ router.get("/", authorise, async (req: Request & { user?: { id: string } }, res:
       return res.status(401).json({ message: "Unauthorised" });
     }
 
-    const user = await pool.query("SELECT users.user_name, users.user_id, journalentries.journalentry_id, journalentries.journalentry_text, journalentries.journalentry_mood FROM users LEFT JOIN journalentries ON users.user_id = journalentries.user_id WHERE users.user_id = $1", [req.user.id]);
+    const user = await pool.query("SELECT users.user_name, users.user_id, journalentries.journalentry_id, journalentries.journalentry_text, journalentries.journalentry_mood, journalentries.journalentry_created_at FROM users LEFT JOIN journalentries ON users.user_id = journalentries.user_id WHERE users.user_id = $1", [req.user.id]);
     res.json(user.rows);
 
   } catch (error: unknown) {

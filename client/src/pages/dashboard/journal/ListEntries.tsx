@@ -2,6 +2,15 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import EditEntry from './EditEntry';
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
+
 const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJournalEntries: any[], setJournalEntriesUpdate: () => void }) => {
 
     const [journalEntries, setJournalEntries] = useState<any[]>([]);
@@ -38,6 +47,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
           <tr>
             <th className='text-lg pr-10'>Description</th>
             <th className='text-lg pr-1'>Mood</th>
+            <th className='text-lg pr-1'>Date created</th>
           </tr>
         </thead>
         <tbody>
@@ -50,9 +60,10 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
                   <img
                   src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
                   alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
-                  className='w-6 h-6 inline-block ml-2'
+                  className='w-6 h-6 inline-block mx-2'
                   />
                 </td>
+                <td>{formatDate(journalEntry.journalentry_created_at)}</td>
                 <td className='pl-10 pr-1'>
                   <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
                 </td>
