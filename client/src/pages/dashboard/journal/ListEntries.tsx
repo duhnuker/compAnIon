@@ -47,6 +47,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
           <tr>
             <th className='text-lg pr-10'>Description</th>
             <th className='text-lg pr-1'>Mood</th>
+            <th className='text-lg pr-1'>Mood Score</th>
             <th className='text-lg pr-1'>Date created</th>
           </tr>
         </thead>
@@ -63,6 +64,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
                   className='w-6 h-6 inline-block mx-2'
                   />
                 </td>
+                <td>{journalEntry.journalentry_mood_score}</td>
                 <td>{formatDate(journalEntry.journalentry_created_at)}</td>
                 <td className='pl-10 pr-1'>
                   <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />

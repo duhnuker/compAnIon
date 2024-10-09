@@ -39,8 +39,7 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>Edit Journal Entry</h2>
-                        <textarea 
+                        <textarea className='text-black w-50 h-5 resize-x'
                             value={journalentry_text} 
                             onChange={(e) => setJournalentry_text(e.target.value)}
                         />

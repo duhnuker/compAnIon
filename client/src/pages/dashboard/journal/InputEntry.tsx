@@ -38,7 +38,7 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
         <h1 className='mb-5 animate-fade animate-delay-1000'>Input a new journal entry:</h1>
         <form onSubmit={onSubmitForm}>
           <input
-          className='animate-fade animate-delay-1000'
+          className='animate-fade animate-delay-1000 text-black'
           type='text'
           placeholder='Enter journal entry'
           value={journalEntry}
