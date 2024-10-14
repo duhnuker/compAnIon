@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend ,ChartData, ChartOptions } from 'chart.js';
 import axios from 'axios';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const DataChart: React.FC = () => {
 
@@ -11,7 +13,10 @@ const DataChart: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = axios.get("http://localhost:5000/dashboard/yourprogress");
+        const response = axios.get("http://localhost:5000/dashboard/yourprogress", {
+          withCredentials: true,
+          headers: { jwt_token: localStorage.token }
+        });
         const data = (await response).data;
 
         const scores = data.map((entry: any) => entry.journalentry_mood_score);
@@ -24,7 +29,7 @@ const DataChart: React.FC = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [moodScores, labels]);
 
   const chartData: ChartData<'bar'> = {
     labels: labels,
@@ -52,7 +57,7 @@ const DataChart: React.FC = () => {
 
   return (
     <div>Your Mood Progress
-      <Bar data={chartData} options={options} />
+      <Bar data={chartData} options={options} id='moodChart' />
     </div>
   )
 }

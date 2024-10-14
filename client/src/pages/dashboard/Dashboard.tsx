@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import InputEntry from './journal/InputEntry';
@@ -33,7 +34,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
       }
     }
   };
-  
+
   const logout = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     try {
@@ -56,7 +57,9 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   return (
     <div className='text-white h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2'>
       <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
-        <div></div>
+        <div>
+          <Link to="/yourprogress">Your progress</Link>
+        </div>
         <div className='flex flex-col items-center justify-center'>
           <h1 className='text-white text-5xl animate-fade-down'>Welcome, <span className='text-white'>{name}</span></h1>
           <h2 className='mt-20 text-lg animate-fade animate-delay-1000'>How you are feeling?</h2>
