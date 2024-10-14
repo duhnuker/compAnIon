@@ -57,12 +57,15 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   return (
     <div className='text-white h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2'>
       <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
-        <div>
-          <Link to="/yourprogress">Your progress</Link>
-        </div>
+        <div></div>
         <div className='flex flex-col items-center justify-center'>
+            <ul className='flex py-10'>
+              <li className='pr-6'><Link to="/dashboard" className="hover-underline-animation">Dashboard</Link></li>
+              <li className='pr-6'><Link to="/yourprogress" className="hover-underline-animation">Your progress</Link></li>
+              <li><Link to="" className="hover-underline-animation">Resources</Link></li>
+            </ul>
           <h1 className='text-white text-5xl animate-fade-down'>Welcome, <span className='text-white'>{name}</span></h1>
-          <h2 className='mt-20 text-lg animate-fade animate-delay-1000'>How you are feeling?</h2>
+          <h2 className='mt-20 text-lg animate-fade animate-delay-1000'>How are you feeling?</h2>
         </div>
         <div></div>
         <div></div>

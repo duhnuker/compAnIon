@@ -21,7 +21,6 @@ const YourProgress = () => {
 
   return (
     <div>
-      <h1>Your progress</h1>
       <DataChart />
     </div>
   )
