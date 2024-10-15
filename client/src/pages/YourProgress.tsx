@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataChart from '../components/DataChart';
+import Navigation from '../components/Navigation';
 
 const YourProgress = () => {
 
@@ -21,6 +22,7 @@ const YourProgress = () => {
 
   return (
     <div>
+      <Navigation />
       <DataChart />
     </div>
   )

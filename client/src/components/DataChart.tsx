@@ -81,10 +81,10 @@ const DataChart: React.FC = () => {
 
 
   return (
-    <div className='bg-midnightp1 h-screen flex flex-col'>
-      <div className='w-full max-w-7xl mx-auto px-4 py-8 flex flex-col flex-grow'>
-      <h1 className='text-white text-center text-2xl font-bold py-4'>Your Mood Progress</h1>
-      <div className='flex-grow'>
+    <div className='animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 h-screen flex flex-col'>
+      <div className='w-full max-w-7xl mx-auto px-4 py-8 flex flex-col flex-grow max-h-[90vh]'>
+      <h1 className='text-white text-center text-2xl font-bold pt-20 pb-6 animate-fade-down'>Your Mood Progress</h1>
+      <div className='flex-grow animate-fade animate-delay-1000'>
       <Line data={chartData} options={options} id='moodChart' />
       </div>
       </div>
