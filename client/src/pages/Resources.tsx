@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Resources = () => {
 
-  const [averageMoodScore, setAverageMoodScore] = useState<number>(0);
+  const [averageMoodScore, setAverageMoodScore] = useState<number | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
@@ -22,13 +22,17 @@ const Resources = () => {
       const response = await axios.get("http://localhost:5000/dashboard/resources", {
         headers: { jwt_token: localStorage.token }
       });
-      setAverageMoodScore(response.data.averageMoodScore);
+      const averageToNum = Number(response.data.averageMoodScore);
+      setAverageMoodScore(isNaN(averageToNum) ? null : averageToNum);
     } catch (error) {
       console.error("Error fetching average mood score", error);
     }
   };
 
   const renderResources = () => {
+    if (averageMoodScore === null) {
+      return <div>Loading resources...</div>
+    }
     if (averageMoodScore < 0.3) {
       return <div>Resources for a low mood</div>
     } else if (averageMoodScore < 0.7) {
@@ -45,7 +49,9 @@ const Resources = () => {
   return (
     <div>
       <h1>Resources</h1>
+      {averageMoodScore !== null && (
       <p>Based on your average mood score of: {averageMoodScore.toFixed(2)} here are some resources I believe may help!</p>
+      )}
       {renderResources()};
     </div>
   )
