@@ -5,6 +5,14 @@ import Navigation from '../components/Navigation';
 import Lottie from 'lottie-react';
 import animationData from '../../public/heart-animation.json';
 
+const ResourceList = ({ resources }: { resources: string[] }) => (
+  <ul className='list-disc list-inside space-y-4 mt-4'>
+      {resources.map((resource, index) => (
+          <li key={index} className='text-left'>{resource}</li>
+      ))}
+  </ul>
+);
+
 const Resources = () => {
 
   const [averageMoodScore, setAverageMoodScore] = useState<number | null>(null);
@@ -34,51 +42,33 @@ const Resources = () => {
 
   const renderResources = () => {
     if (averageMoodScore === null) {
-      return <div>Loading resources...</div>
+        return <div>Loading resources...</div>
     }
+
+    let resources: string[];
+
     if (averageMoodScore < 0.3) {
-      return <div>It looks like you might benefit from some support. Here are some resources:
-        <br></br>
-        <br></br>
-        1. 24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)
-        <br></br>
-        <br></br>
-        2. Reach out to loved ones
-        <br></br>
-        <br></br>
-        3. Cognitive Behavioural Therapy (CBT) exercises
-        <br></br>
-        <br></br>
-        4. Local support groups finder
-      </div>
+        resources = [
+            "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
+            "Reach out to loved ones",
+            "Cognitive Behavioural Therapy (CBT) exercises",
+            "Local support groups finder"
+        ];
     } else if (averageMoodScore < 0.7) {
-      return <div>It seems you are doing alright. Whether you are on the right path, or struggling once again, here are some resources I believe would be useful:
-        <br></br>
-        <br></br>
-        1. 24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)
-        <br></br>
-        <br></br>
-        2. Mindfulness meditation
-        <br></br>
-        <br></br>
-        3. Cognitive Behavioural Therapy (CBT) exercises
-        <br></br>
-        <br></br>
-        4. Gratitude journaling prompts
-      </div>
+        resources = [
+            "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
+            "Mindfulness meditation",
+            "Cognitive Behavioural Therapy (CBT) exercises",
+            "Gratitude journaling prompts"
+        ];
     } else {
-      return <div>Your mood seems good! Here are some resources to continue maintaining your wellbeing:
-        <br></br>
-        <br></br>
-        1. Mindfulness meditation
-        <br></br>
-        <br></br>
-        2. Gratitude journaling prompts
-        <br></br>
-        <br></br>
-        3. Positive psychology podcast
-      </div>
-    }
+        resources = [
+            "Mindfulness meditation",
+            "Gratitude journaling prompts",
+            "Positive psychology podcast"
+        ];
+      }
+      return <ResourceList resources={resources} />
   };
 
   if (!isAuthenticated) {
@@ -91,7 +81,7 @@ const Resources = () => {
       <div className='flex-grow flex flex-col items-center p-6'>
         <h1 className='text-2xl font-bold my-40 animate-fade animate-delay-1000'>Resources</h1>
         {averageMoodScore !== null && (
-          <p className='mb-4 text-center max-w-2xl animate-fade-down'>Based on your average mood score of: {averageMoodScore.toFixed(2)} here are some resources I believe may help!</p>
+          <p className='font-bold text-lg text-center max-w-2xl animate-fade-down'>Based on your average mood score of: {averageMoodScore.toFixed(2)} here are some resources I believe may help!</p>
         )}
         <div className='text-center animate-fade-down'>
           {renderResources()}
