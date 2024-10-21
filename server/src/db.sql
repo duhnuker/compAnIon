@@ -17,7 +17,7 @@ CREATE TABLE journalentries (
   user_id UUID,
   journalentry_text TEXT NOT NULL,
   journalentry_mood VARCHAR(50),
-  journalentry_mood_score NUMERIC(5,4),
+  journalentry_mood_score NUMERIC(6,3),
   journalentry_created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (journalentry_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE

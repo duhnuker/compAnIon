@@ -56,7 +56,7 @@ router.put("/journalentry/:id", authorise, async (req: Request & { user?: { id: 
     //Updated text sentiment analysis
     const entryMood = await analyseSentiment(journalentry_text);
 
-    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1, journalentry_mood = $4 WHERE journalentry_id = $2 AND user_id = $3 RETURNING *", [journalentry_text, id, req.user.id, entryMood.label]);
+    const editJournalEntry = await pool.query("UPDATE journalentries SET journalentry_text = $1, journalentry_mood = $4, journalentry_mood_score = $5 WHERE journalentry_id = $2 AND user_id = $3 RETURNING *", [journalentry_text, id, req.user.id, entryMood.label, entryMood.score]);
 
     if (editJournalEntry.rows.length === 0) {
       return res.status(404).json({ message: "This journal entry is not yours or does not exist" });
@@ -115,7 +115,7 @@ router.get("/resources", authorise, async (req: Request & { user?: { id: string 
       return res.status(401).json({ message: "Unauthorised" });
     }
 
-    const result = await pool.query("SELECT AVG(journalentry_mood_score) as average_mood_score FROM journalentries WHERE user_id = $1", [req.user.id]);
+    const result = await pool.query("SELECT AVG(journalentry_mood_score) * 2 - 100 as average_mood_score FROM journalentries WHERE user_id = $1", [req.user.id]);
     const averageMoodScore = result.rows[0].average_mood_score || 0;
 
     res.json({ averageMoodScore });

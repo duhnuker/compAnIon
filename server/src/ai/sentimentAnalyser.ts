@@ -7,5 +7,10 @@ export async function analyseSentiment(text: string): Promise<{ label: string; s
   }
   
   const result = await sentimentPipeline(text);
-  return result[0];
+  const { label, score } = result[0];
+  
+  //score range from -100 to 100
+  const adjustedScore = (score * 200) - 100;
+  
+  return { label, score: adjustedScore };
 }

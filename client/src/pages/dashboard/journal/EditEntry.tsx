@@ -37,13 +37,17 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
             <button className='border-2 p-0.5 rounded-md' onClick={() => setIsModalOpen(true)}>Edit</button>
             
             {isModalOpen && (
-                <div className="modal">
+                <div className="modal" style={{
+                    position: 'relative',
+                    zIndex: 10,
+                    marginBottom: '1rem',
+                }}>
                     <div className="modal-content">
-                        <textarea className='text-black w-50 h-5 resize-x'
+                        <textarea className='text-black w-50 h-[100px] resize-x w-[200px]'
                             value={journalentry_text} 
                             onChange={(e) => setJournalentry_text(e.target.value)}
                         />
-                        <button onClick={() => editJournalEntry(journalEntry.journalentry_id)}>
+                        <button className='pr-16' onClick={() => editJournalEntry(journalEntry.journalentry_id)}>
                             Confirm Edit
                         </button>
                         <button onClick={() => setIsModalOpen(false)}>Cancel</button>

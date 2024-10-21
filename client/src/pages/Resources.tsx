@@ -6,11 +6,11 @@ import Lottie from 'lottie-react';
 import animationData from '../../public/heart-animation.json';
 
 const ResourceList = ({ resources }: { resources: string[] }) => (
-  <ul className='list-disc list-inside space-y-4 mt-4'>
+  <div className='space-y-4 mt-4'>
       {resources.map((resource, index) => (
-          <li key={index} className='text-left'>{resource}</li>
+          <div key={index} className='text-center p-2 border border-gray-700 rounded-lg'>{resource}</div>
       ))}
-  </ul>
+  </div>
 );
 
 const Resources = () => {
@@ -47,14 +47,14 @@ const Resources = () => {
 
     let resources: string[];
 
-    if (averageMoodScore < 0.3) {
+    if (averageMoodScore < -40) {
         resources = [
             "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
             "Reach out to loved ones",
             "Cognitive Behavioural Therapy (CBT) exercises",
             "Local support groups finder"
         ];
-    } else if (averageMoodScore < 0.7) {
+    } else if (averageMoodScore < 40) {
         resources = [
             "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
             "Mindfulness meditation",

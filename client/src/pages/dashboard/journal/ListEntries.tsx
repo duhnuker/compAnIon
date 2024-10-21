@@ -13,39 +13,39 @@ const formatDate = (dateString: string) => {
 
 const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJournalEntries: any[], setJournalEntriesUpdate: () => void }) => {
 
-    const [journalEntries, setJournalEntries] = useState<any[]>([]);
+  const [journalEntries, setJournalEntries] = useState<any[]>([]);
 
 
-    async function deleteJournalEntry(id: string) {
-        try {
-            
-            await axios.delete(`http://localhost:5000/dashboard/journalentry/${id}`,
-                {
-                    headers: { jwt_token: localStorage.token }
-                }
-            );
-            
-            setJournalEntries(journalEntries.filter((journalEntry: { journalentry_id: string }) => journalEntry.journalentry_id !== id));
+  async function deleteJournalEntry(id: string) {
+    try {
 
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                console.error(error.message);
-            } else {
-                console.error('An unknown error occurred');
-            }
+      await axios.delete(`http://localhost:5000/dashboard/journalentry/${id}`,
+        {
+          headers: { jwt_token: localStorage.token }
         }
-    }
+      );
 
-    useEffect(() => {
-        setJournalEntries(allJournalEntries);
-    }, [allJournalEntries]);
-    
+      setJournalEntries(journalEntries.filter((journalEntry: { journalentry_id: string }) => journalEntry.journalentry_id !== id));
+
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error('An unknown error occurred');
+      }
+    }
+  }
+
+  useEffect(() => {
+    setJournalEntries(allJournalEntries);
+  }, [allJournalEntries]);
+
   return (
     <div className='animate-fade animate-delay-1000'>
-         <table className="table mt-5">
+      <table className="table mt-5">
         <thead>
           <tr>
-            <th className='text-lg pr-10'>Description</th>
+            <th className='text-lg pr-20'>Description</th>
             <th className='text-lg pr-1'>Mood</th>
             <th className='text-lg pr-1'>Mood Score</th>
             <th className='text-lg pr-1'>Date created</th>
@@ -59,23 +59,23 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
                 <td className='pr-10'>{journalEntry.journalentry_text}</td>
                 <td>{journalEntry.journalentry_mood}
                   <img
-                  src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
-                  alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
-                  className='w-6 h-6 inline-block mx-2'
+                    src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
+                    alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
+                    className='w-6 h-6 inline-block mx-2'
                   />
                 </td>
                 <td className='pl-4'>{journalEntry.journalentry_mood_score}</td>
                 <td>{formatDate(journalEntry.journalentry_created_at)}</td>
-                <td className='pl-10 pr-1'>
-                  <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
-                </td>
-                <td>
-                  <button
-                    className="btn btn-danger border-2 p-0.5 rounded-md"
-                    onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
-                  >
-                    Delete
-                  </button>
+                <td className='pl-10 pr-1 relative'>
+                  <div className='flex space-x-2 z-20'>
+                    <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
+                    <button
+                      className="btn btn-danger border-2 p-0.5 rounded-md"
+                      onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
