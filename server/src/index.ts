@@ -5,6 +5,8 @@ const { Pool } = pkg;
 import 'dotenv/config';
 import jwtAuth from "./routes/jwtAuth.js";
 import dashboard from './routes/dashboard.js';
+import yourProgress from './routes/yourProgress.js';
+import resources from './routes/resources.js';
 
 
 const app = express();
@@ -26,8 +28,9 @@ export const pool = new Pool({
 
 
 app.use("/auth", jwtAuth);
-
 app.use("/dashboard", dashboard);
+app.use("/dashboard/yourprogress", yourProgress);
+app.use("/dashboard/resources", resources)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
