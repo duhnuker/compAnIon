@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import EditEntry from './EditEntry';
+import '../../../index.css';
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -42,13 +43,13 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
 
   return (
     <div className='animate-fade animate-delay-1000'>
-      <table className="table mt-5">
+      <table className="table-auto w-full mt-5 border-collapse">
         <thead>
           <tr>
-            <th className='text-lg pr-20'>Description</th>
-            <th className='text-lg pr-1'>Mood</th>
-            <th className='text-lg pr-1'>Mood Score</th>
-            <th className='text-lg pr-1'>Date created</th>
+            <th className='text-lg p-2 border'>Description</th>
+            <th className='text-lg p-2 border'>Mood</th>
+            <th className='text-lg p-2 border'>Mood Score</th>
+            <th className='text-lg p-2 border'>Date created</th>
           </tr>
         </thead>
         <tbody>
@@ -56,25 +57,29 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
             journalEntries[0].journalentry_id !== null &&
             journalEntries.map(journalEntry => (
               <tr key={journalEntry.journalentry_id}>
-                <td className='pr-10'>{journalEntry.journalentry_text}</td>
-                <td>{journalEntry.journalentry_mood}
+                <td className='p-2 border'>{journalEntry.journalentry_text}</td>
+                <td className='p-2 border'>{journalEntry.journalentry_mood}
                   <img
                     src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
                     alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
                     className='w-6 h-6 inline-block mx-2'
                   />
                 </td>
-                <td className='pl-4'>{journalEntry.journalentry_mood_score}</td>
-                <td>{formatDate(journalEntry.journalentry_created_at)}</td>
-                <td className='pl-10 pr-1 relative'>
-                  <div className='flex space-x-2 z-20'>
-                    <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
-                    <button
-                      className="btn btn-danger border-2 p-0.5 rounded-md"
-                      onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
-                    >
-                      Delete
-                    </button>
+                <td className='p-2 border text-center'>{journalEntry.journalentry_mood_score}</td>
+                <td className='p-2 border'>{formatDate(journalEntry.journalentry_created_at)}</td>
+                <td className='p-2 border'>
+                  <div className='flex flex-row space-x-2 justify-start items-center'>
+                    <div>
+                      <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
+                    </div>
+                    <div className='w-20'>
+                      <button
+                        className="btn btn-danger border-2 p-1 rounded-md"
+                        onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </td>
               </tr>

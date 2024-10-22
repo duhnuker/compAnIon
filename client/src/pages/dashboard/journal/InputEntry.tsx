@@ -44,7 +44,7 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
           value={journalEntry}
           onChange={e => setJournalEntry(e.target.value)}>
           </input>
-          <button className='ml-3 border-2 px-1 rounded-md animate-fade animate-delay-1000'>Add</button>
+          <button className='ml-3 border-2 px-2 py-1 mb-6 rounded-md animate-fade animate-delay-1000'>Add</button>
         </form>
     </div>
   )

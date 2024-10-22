@@ -25,6 +25,7 @@ body {
     }
 }
 
+/* NavBar animations */
 .hover-underline-animation {
   display: inline-block;
   position: relative;

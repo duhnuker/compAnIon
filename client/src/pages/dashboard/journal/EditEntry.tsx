@@ -7,7 +7,7 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
 
     const editJournalEntry = async (id: string) => {
         try {
-            
+
             const body = { journalentry_text };
 
             await axios.put(`http://localhost:5000/dashboard/journalentry/${id}`,
@@ -32,10 +32,17 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
         }
     }
 
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        setJournalentry_text(journalEntry.journalentry_text);
+    }
+
     return (
         <div>
-            <button className='border-2 p-0.5 rounded-md' onClick={() => setIsModalOpen(true)}>Edit</button>
-            
+            {!isModalOpen && (
+                <button className='border-2 p-0.5 rounded-md' onClick={() => setIsModalOpen(true)}>Edit</button>
+            )}
+
             {isModalOpen && (
                 <div className="modal" style={{
                     position: 'relative',
@@ -43,14 +50,16 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
                     marginBottom: '1rem',
                 }}>
                     <div className="modal-content">
-                        <textarea className='text-black w-50 h-[100px] resize-x w-[200px]'
-                            value={journalentry_text} 
+                        <textarea className='text-black w-50 h-[50px] resize-x w-[200px]'
+                            value={journalentry_text}
                             onChange={(e) => setJournalentry_text(e.target.value)}
                         />
-                        <button className='pr-16' onClick={() => editJournalEntry(journalEntry.journalentry_id)}>
-                            Confirm Edit
-                        </button>
-                        <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+                        <div className='flex justify-between'>
+                            <button className='border-2 p-1 rounded-md' onClick={() => editJournalEntry(journalEntry.journalentry_id)}>
+                                Confirm Edit
+                            </button>
+                            <button className='border-2 p-1 rounded-md' onClick={handleCancel}>Cancel</button>
+                        </div>
                     </div>
                 </div>
             )}
