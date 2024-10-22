@@ -51,6 +51,7 @@ const DataChart: React.FC = () => {
     scales: {
       y: {
         beginAtZero: true,
+        min: 0,
         max: 100,
         grid: {
           color: 'white'

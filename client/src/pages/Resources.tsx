@@ -47,14 +47,14 @@ const Resources = () => {
 
     let resources: string[];
 
-    if (averageMoodScore < -40) {
+    if (averageMoodScore < 30) {
         resources = [
             "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
             "Reach out to loved ones",
             "Cognitive Behavioural Therapy (CBT) exercises",
             "Local support groups finder"
         ];
-    } else if (averageMoodScore < 40) {
+    } else if (averageMoodScore < 60) {
         resources = [
             "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
             "Mindfulness meditation",

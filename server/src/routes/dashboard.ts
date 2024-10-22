@@ -115,7 +115,7 @@ router.get("/resources", authorise, async (req: Request & { user?: { id: string 
       return res.status(401).json({ message: "Unauthorised" });
     }
 
-    const result = await pool.query("SELECT AVG(journalentry_mood_score) * 2 - 100 as average_mood_score FROM journalentries WHERE user_id = $1", [req.user.id]);
+    const result = await pool.query("SELECT AVG(journalentry_mood_score) as average_mood_score FROM journalentries WHERE user_id = $1", [req.user.id]);
     const averageMoodScore = result.rows[0].average_mood_score || 0;
 
     res.json({ averageMoodScore });
