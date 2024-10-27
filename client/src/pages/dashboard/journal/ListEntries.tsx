@@ -13,20 +13,27 @@ const formatDate = (dateString: string) => {
 };
 
 const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJournalEntries: any[], setJournalEntriesUpdate: () => void }) => {
-
   const [journalEntries, setJournalEntries] = useState<any[]>([]);
 
+  const getEntries = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/dashboard/journalentries", {
+        headers: { jwt_token: localStorage.token }
+      });
+      setJournalEntries(response.data);
+    } catch (error) {
+      console.error('Error fetching entries:', error);
+    }
+  };
 
   async function deleteJournalEntry(id: string) {
     try {
-
-      await axios.delete(`http://localhost:5000/dashboard/journalentry/${id}`,
-        {
-          headers: { jwt_token: localStorage.token }
-        }
-      );
+      await axios.delete(`http://localhost:5000/dashboard/journalentries/journalentry/${id}`, {
+        headers: { jwt_token: localStorage.token }
+      });
 
       setJournalEntries(journalEntries.filter((journalEntry: { journalentry_id: string }) => journalEntry.journalentry_id !== id));
+      setJournalEntriesUpdate();
 
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -36,6 +43,10 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
       }
     }
   }
+
+  useEffect(() => {
+    getEntries();
+  }, []);
 
   useEffect(() => {
     setJournalEntries(allJournalEntries);

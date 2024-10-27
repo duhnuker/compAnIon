@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import InputEntry from './journal/InputEntry';
-import ListEntries from './journal/ListEntries';
 import Navigation from '../../components/Navigation';
 
 const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
 
   const [name, setName] = useState("");
-  const [allJournalEntries, setAllJournalEntries] = useState([]);
   const [journalEntriesUpdate, setJournalEntriesUpdate] = useState(false);
 
   const getProfile = async () => {
@@ -20,11 +18,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
         }
       );
 
-      const parseData = response.data;
-
-      setAllJournalEntries(parseData);
-
-      setName(parseData[0].user_name);
+      setName(response.data[0].user_name);
 
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -67,7 +61,6 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
         <div></div>
         <div className='flex flex-col items-center justify-center'>
           <InputEntry setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)} />
-          <ListEntries allJournalEntries={allJournalEntries} setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)} />
         </div>
         <div></div>
         <div></div>

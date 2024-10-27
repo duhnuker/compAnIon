@@ -10,7 +10,7 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
 
             const body = { journalentry_text };
 
-            await axios.put(`http://localhost:5000/dashboard/journalentry/${id}`,
+            await axios.put(`http://localhost:5000/dashboard/journalentries/journalentry/${id}`,
                 body,
                 {
                     headers: {
