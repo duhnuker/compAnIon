@@ -18,7 +18,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
         }
       );
 
-      setName(response.data[0].user_name);
+      setName(response.data.user_name);
 
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -55,7 +55,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
         <div className='flex flex-col items-center justify-center'>
           <Navigation />
           <h1 className='text-white text-5xl animate-fade-down'>Welcome, <span className='text-white'>{name}</span></h1>
-          <h2 className='mt-20 text-lg animate-fade animate-delay-1000'>How are you feeling?</h2>
+          <h2 className='mt-20 text-lg font-bold animate-fade animate-delay-1000'>How are you feeling?</h2>
         </div>
         <div></div>
         <div></div>
