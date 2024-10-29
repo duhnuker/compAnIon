@@ -17,6 +17,7 @@ router.get("/", authorise, async (req: Request & { user?: { id: string } }, res:
       [req.user.id]
     );
     res.json(user.rows[0]);
+    
   } catch (error: unknown) {
     console.error(error instanceof Error ? error.message : "Unknown error");
     res.status(500).json({ message: "Server Error" });
