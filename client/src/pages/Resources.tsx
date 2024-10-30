@@ -5,19 +5,68 @@ import Navigation from '../components/Navigation';
 import Lottie from 'lottie-react';
 import animationData from '../../public/heart-animation.json';
 
-const ResourceList = ({ resources }: { resources: string[] }) => (
-  <div className='space-y-4 mt-4'>
-      {resources.map((resource, index) => (
-          <div key={index} className='text-center p-2 border border-gray-700 rounded-lg'>{resource}</div>
-      ))}
-  </div>
-);
-
 const Resources = () => {
 
   const [averageMoodScore, setAverageMoodScore] = useState<number | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+
+  interface YouTubeVideo {
+    id: string;
+    title: string;
+  }
+
+  const fetchRelevantVideo = async (resourceTitle: string): Promise<string> => {
+    try {
+      const response = await axios.get(`http://localhost:5000/dashboard/resources/youtube-search`, {
+        params: {
+          query: resourceTitle
+        },
+        headers: { jwt_token: localStorage.token }
+      });
+      return `https://www.youtube.com/embed/${response.data.videoId}`;
+    } catch (error) {
+      console.error("Error fetching video:", error);
+      return '';
+    }
+  };
+
+  const ResourceList = ({ resources }: { resources: string[] }) => {
+    const [videoUrls, setVideoUrls] = useState<Record<string, string>>({});
+
+    useEffect(() => {
+      const loadVideos = async () => {
+        const videoMap: Record<string, string> = {};
+        for (const resource of resources) {
+          const videoUrl = await fetchRelevantVideo(resource);
+          videoMap[resource] = videoUrl;
+        }
+        setVideoUrls(videoMap);
+      };
+      loadVideos();
+    }, [resources]);
+
+    return (
+      <div className='space-y-4 mt-4'>
+        {resources.map((resource, index) => (
+          <div key={index} className='text-center p-4 border border-gray-700 rounded-lg'>
+            <h3 className='font-semibold mb-2'>{resource}</h3>
+            {videoUrls[resource] && (
+              <iframe
+                width="280"
+                height="157"
+                src={videoUrls[resource]}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   useEffect(() => {
     if (!localStorage.token) {
@@ -42,38 +91,34 @@ const Resources = () => {
 
   const renderResources = () => {
     if (averageMoodScore === null) {
-        return <div>Loading resources...</div>
+      return <div>Loading resources...</div>
     }
 
     let resources: string[];
 
     if (averageMoodScore < 30) {
-        resources = [
-            "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
-            "Reach out to loved ones",
-            "Cognitive Behavioural Therapy (CBT) exercises",
-            "Local support groups finder"
-        ];
+      resources = [
+        "Coping strategies for depression",
+        "Mindfulness exercises for anxiety",
+        "Professional mental health support",
+        "Self-care techniques"
+      ];
     } else if (averageMoodScore < 60) {
-        resources = [
-            "24/7 mental health helpline Australia 1300-22-4636 (Beyond Blue)",
-            "Mindfulness meditation",
-            "Cognitive Behavioural Therapy (CBT) exercises",
-            "Gratitude journaling prompts"
-        ];
+      resources = [
+        "Guided meditation techniques",
+        "Stress management strategies",
+        "Positive thinking exercises",
+        "Mood improvement activities"
+      ];
     } else {
-        resources = [
-            "Mindfulness meditation",
-            "Gratitude journaling prompts",
-            "Positive psychology podcast"
-        ];
-      }
-      return <ResourceList resources={resources} />
+      resources = [
+        "Maintaining mental wellness",
+        "Advanced meditation practices",
+        "Personal growth strategies"
+      ];
+    }
+    return <ResourceList resources={resources} />
   };
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   return (
     <div className='animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 h-screen text-white flex flex-col'>
@@ -86,7 +131,7 @@ const Resources = () => {
         <div className='text-center animate-fade-down'>
           {renderResources()}
         </div>
-        <Lottie animationData={animationData} style={{ width: 200, height: 200}} />
+        <Lottie animationData={animationData} style={{ width: 200, height: 200 }} />
       </div>
     </div>
   )
