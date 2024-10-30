@@ -2,15 +2,18 @@ import express, { Request, Response, Router } from "express";
 import { pool } from "../index.js";
 import authorise from "../middleware/authorise.js";
 import { google } from 'googleapis';
-import OpenAI from 'openai';
+import { pipeline } from "@xenova/transformers";
 
 const router: Router = express.Router();
 
 const youtube = google.youtube('v3');
 
-const openai = new OpenAI(({
-  apiKey: process.env.OPENAI_API_KEY
-}));
+let pipe: any;
+const initPipeline = async () => {
+    pipe = await pipeline('text-generation', 'Xenova/distilgpt2');
+};
+initPipeline();
+
 
 
 router.get("/", authorise, async (req: Request & { user?: { id: string } }, res: Response) => {
@@ -40,14 +43,12 @@ router.get('/youtube-search', async (req: Request<{}, {}, {}, { query?: string }
       throw new Error("YouTube API key is not configured");
     }
 
-    const completion = await openai.completions.create({
-      model: "text-davinci-003",
-      prompt: `Generate a specific YouTube search query for: ${req.query.query}. Focus on helpful, educational content.`,
-      max_tokens: 50,
+    const output = await pipe(`Generate a specific YouTube search query for: ${req.query.query}. Focus on helpful, educational content.`, {
+      max_new_tokens: 50,
       temperature: 0.7
     });
 
-    const searchQuery = completion.choices[0]?.text?.trim();
+    const searchQuery = output[0].generated_text;
 
     if (!searchQuery) {
       return res.status(500).json({ message: "Failed to generate search query" });
@@ -69,6 +70,7 @@ router.get('/youtube-search', async (req: Request<{}, {}, {}, { query?: string }
     }
 
     return res.json({ videoId });
+
   } catch (error) {
     console.error('YouTube search error:', error);
     return res.status(500).json({ message: "Error fetching video" });
