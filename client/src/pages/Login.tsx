@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 
 const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
-
+  const [isLoading, setIsLoading] = useState(false);
   const [inputs, setInputs] = useState({
     email: "",
     password: ""
@@ -16,12 +16,11 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   }
 
   const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const body = { email, password };
-
       const response = await axios.post(
         "http://localhost:5000/auth/login",
         body,
@@ -41,6 +40,8 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
       }
     } catch (err) {
       console.error(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,6 +57,7 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
               name='email'
               placeholder='Email'
               value={email}
+              disabled={isLoading}
               onChange={e => onChange(e)}>
             </input>
             <br></br>
@@ -65,11 +67,27 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
               name='password'
               placeholder='Password'
               value={password}
+              disabled={isLoading}
               onChange={e => onChange(e)}>
             </input>
             <br></br>
             <div>
-              <button className='mt-3 py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300 animate-fade-up animate-delay-500'>Login</button>
+              <button
+                className='mt-3 py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300 animate-fade-up animate-delay-500 disabled:opacity-50'
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <div className="flex items-center gap-2">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Logging in...
+                  </div>
+                ) : (
+                  'Login'
+                )}
+              </button>
             </div>
           </form>
           <p className='text-white pt-10 animate-fade-up animate-delay-500'>Don't have an account?</p>
@@ -78,7 +96,7 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
           </div>
         </div>
         <div className='text-white bg-transparent'>
-          <img src='compAnIonlogo.jpg' className='w-[400px] h-[400px] opacity-20'></img>
+          <img src='compAnIonlogo.jpg' className='w-[400px] h-[400px] opacity-20' alt="compAnIon logo"></img>
         </div>
       </div>
     </div>
