@@ -38,7 +38,7 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
       <h1 className='text-base mb-5 animate-fade animate-delay-1000 text-center'>Input an entry below:</h1>
       <form onSubmit={onSubmitForm} className="flex flex-col sm:flex-row items-center gap-3">
         <input
-          className='md:w-[500px] md:h-[50px] rounded-md animate-fade animate-delay-1000 text-black text-xl bg-black hover:bg-white duration-500 p-2'
+          className='md:w-[500px] md:h-[50px] rounded-md animate-fade animate-delay-1000 text-gray-400 hover:bg-white duration-500 text-xl bg-black p-2'
           type='text'
           placeholder='Input here'
           value={journalEntry}

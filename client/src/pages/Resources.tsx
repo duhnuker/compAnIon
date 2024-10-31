@@ -138,9 +138,9 @@ const Resources = () => {
         <Navigation />
       </div>
       <div className='flex-grow flex flex-col items-center p-6 mt-10'>
-        <h1 className='text-2xl font-bold my-20 animate-fade animate-delay-1000'>Resources</h1>
+        <h1 className='text-2xl font-bold my-12 sm:my-20 animate-fade animate-delay-1000'>Resources</h1>
         {averageMoodScore !== null && (
-          <p className='font-bold text-lg text-center max-w-2xl animate-fade-down'>Based on your average mood score of: {averageMoodScore.toFixed(2)} here are some resources I believe may help!</p>
+          <p className='font-bold text-lg text-center max-w-2xl animate-fade-down mb-10'>Based on your average mood score of: {averageMoodScore.toFixed(2)} here are some resources I believe may help!</p>
         )}
         <div className='text-center animate-fade-down'>
           {renderResources()}

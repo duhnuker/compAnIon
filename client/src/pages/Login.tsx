@@ -52,7 +52,7 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
           <h1 className='text-3xl md:text-5xl pb-10 md:pb-20 text-white font-bold animate-fade-down text-center md:text-left'>Welcome back,</h1>
           <form onSubmit={onSubmitForm} className='flex flex-col items-center md:items-start'>
             <input
-              className='w-full max-w-sm mt-4 p-3 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
+              className='w-full max-w-sm mt-4 p-3 rounded-lg bg-black text-gray-400 hover:bg-white duration-500 animate-fade-up animate-delay-500'
               type='email'
               name='email'
               placeholder='Email'
@@ -61,7 +61,7 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
               onChange={onChange}>
             </input>
             <input
-              className='w-full max-w-sm mt-4 p-3 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
+              className='w-full max-w-sm mt-4 p-3 rounded-lg bg-black text-gray-400 hover:bg-white duration-500 animate-fade-up animate-delay-500'
               type='password'
               name='password'
               placeholder='Password'
@@ -95,8 +95,9 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
             </div>
           </div>
         </div>
-        <div className='text-white bg-transparent flex justify-center items-center mb-8 md:mb-0'>
+        <div className='text-white bg-transparent flex justify-center items-center mb-8 md:mb-0'><a href='/'>
           <img src='compAnIonlogo.jpg' className='w-[200px] h-[200px] md:w-[400px] md:h-[400px] opacity-20' alt="compAnIon logo"></img>
+          </a>
         </div>
       </div>
     </div>
