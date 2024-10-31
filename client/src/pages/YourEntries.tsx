@@ -25,9 +25,11 @@ const YourEntries = () => {
 
   return (
     <div className='text-white h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-24'>
-      <Navigation />
+      <div className='text-center'>
+        <Navigation />
+      </div>
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold my-6 text-center">Your Journal Entries</h1>
+        <h1 className="text-3xl font-bold my-6 text-center animate-fade-down">Your Entries</h1>
         <ListEntries
           allJournalEntries={allJournalEntries}
           setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)}

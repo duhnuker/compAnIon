@@ -20,32 +20,32 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
           }
         });
 
-        const parseResponse = await response.data;
-        console.log(parseResponse);
+      const parseResponse = await response.data;
+      console.log(parseResponse);
 
-        setJournalEntriesUpdate(true);
-        setJournalEntry("");
+      setJournalEntriesUpdate(true);
+      setJournalEntry("");
 
-      
+
     } catch (error: any) {
       console.error(error.message);
     }
 
-  }  
-  
-   return (
+  }
+
+  return (
     <div>
-        <h1 className='text-base mb-5 animate-fade animate-delay-1000 text-center'>Input a new journal entry:</h1>
-        <form onSubmit={onSubmitForm}>
-          <input
-          className='w-[500px] h-[50px] rounded-md animate-fade animate-delay-1000 text-black text-xl'
+      <h1 className='text-base mb-5 animate-fade animate-delay-1000 text-center'>Input an entry below:</h1>
+      <form onSubmit={onSubmitForm} className="flex flex-col sm:flex-row items-center gap-3">
+        <input
+          className='md:w-[500px] md:h-[50px] rounded-md animate-fade animate-delay-1000 text-black text-xl bg-black hover:bg-white duration-500 p-2'
           type='text'
-          placeholder='Enter journal entry'
+          placeholder='Input here'
           value={journalEntry}
           onChange={e => setJournalEntry(e.target.value)}>
-          </input>
-          <button className='ml-3 border-2 px-2 py-1 mb-6 rounded-md animate-fade animate-delay-1000'>Add</button>
-        </form>
+        </input>
+        <button className='border-2 px-2 py-1 mb-6 rounded-md animate-fade animate-delay-1000 sm:mt-6'>Add</button>
+      </form>
     </div>
   )
 }

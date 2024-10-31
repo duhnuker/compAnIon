@@ -21,7 +21,7 @@ const YourProgress = () => {
   }
 
   return (
-    <div>
+    <div className='text-center'>
       <Navigation />
       <DataChart />
     </div>

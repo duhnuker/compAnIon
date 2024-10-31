@@ -8,7 +8,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import YourProgress from "./pages/YourProgress";
 import Resources from "./pages/Resources";
-import JournalEntries from "./pages/journalEntries";
+import JournalEntries from "./pages/YourEntries";
+import YourEntries from "./pages/YourEntries";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,7 +48,7 @@ function App() {
         <Route path="/login" element={!isAuthenticated ? <Login setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!isAuthenticated ? <Register setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={isAuthenticated ? <Dashboard setAuth={setAuth} /> : <Navigate to="/login" />} />
-        <Route path="/journalentries" element={isAuthenticated ? <JournalEntries /> : <Navigate to="/login" />} />
+        <Route path="/journalentries" element={isAuthenticated ? <YourEntries /> : <Navigate to="/login" />} />
         <Route path="/yourprogress" element={isAuthenticated ? <YourProgress /> : <Navigate to="/login" />} />
         <Route path="/resources" element={isAuthenticated ? <Resources /> : <Navigate to="/login" />} />
       </Routes>

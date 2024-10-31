@@ -53,37 +53,37 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
   }, [allJournalEntries]);
 
   return (
-    <div className='animate-fade animate-delay-1000'>
-      <table className="table-auto w-full mt-5 border-collapse">
-        <thead>
-          <tr>
-            <th className='text-lg p-2 border'>Description</th>
-            <th className='text-lg p-2 border'>Mood</th>
-            <th className='text-lg p-2 border'>Mood Score</th>
-            <th className='text-lg p-2 border'>Date created</th>
-          </tr>
-        </thead>
-        <tbody>
-          {journalEntries.length !== 0 &&
-            journalEntries[0].journalentry_id !== null &&
-            journalEntries.map(journalEntry => (
-              <tr key={journalEntry.journalentry_id}>
-                <td className='p-2 border'>{journalEntry.journalentry_text}</td>
-                <td className='p-2 border'>{journalEntry.journalentry_mood}
-                  <img
-                    src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
-                    alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
-                    className='w-6 h-6 inline-block mx-2'
-                  />
-                </td>
-                <td className='p-2 border text-center'>{journalEntry.journalentry_mood_score}</td>
-                <td className='p-2 border'>{formatDate(journalEntry.journalentry_created_at)}</td>
-                <td className='p-2 border'>
-                  <div className='flex flex-row space-x-2 justify-start items-center'>
-                    <div>
+    <div className='animate-fade animate-delay-1000 overflow-x-auto'>
+      <div className="min-w-full">
+        {/* Large screens - table view */}
+        <table className="hidden md:table w-full mt-5 border-collapse">
+          <thead>
+            <tr>
+              <th className='text-lg p-2 border'>Description</th>
+              <th className='text-lg p-2 border'>Mood</th>
+              <th className='text-lg p-2 border'>Mood Score</th>
+              <th className='text-lg p-2 border'>Date created</th>
+              <th className='text-lg p-2 border'>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {journalEntries.length !== 0 &&
+              journalEntries[0].journalentry_id !== null &&
+              journalEntries.map(journalEntry => (
+                <tr key={journalEntry.journalentry_id}>
+                  <td className='p-2 border'>{journalEntry.journalentry_text}</td>
+                  <td className='p-2 border'>{journalEntry.journalentry_mood}
+                    <img
+                      src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
+                      alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
+                      className='w-6 h-6 inline-block mx-2'
+                    />
+                  </td>
+                  <td className='p-2 border text-center'>{journalEntry.journalentry_mood_score}</td>
+                  <td className='p-2 border'>{formatDate(journalEntry.journalentry_created_at)}</td>
+                  <td className='p-2 border'>
+                    <div className='flex flex-row space-x-2 justify-start items-center'>
                       <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
-                    </div>
-                    <div className='w-20'>
                       <button
                         className="btn btn-danger border-2 p-1 rounded-md"
                         onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
@@ -91,12 +91,50 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
                         Delete
                       </button>
                     </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+
+        {/* Mobile view - card layout */}
+        <div className="md:hidden space-y-4 mt-5">
+          {journalEntries.length !== 0 &&
+            journalEntries[0].journalentry_id !== null &&
+            journalEntries.map(journalEntry => (
+              <div key={journalEntry.journalentry_id} className="border rounded-lg p-4 shadow-sm">
+                <div className="space-y-2">
+                  <div className="font-semibold">Description:</div>
+                  <div className="pl-2">{journalEntry.journalentry_text}</div>
+                  <div className="font-semibold">Mood:</div>
+                  <div className="pl-2 flex items-center">
+                    {journalEntry.journalentry_mood}
+                    <img
+                      src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
+                      alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
+                      className='w-6 h-6 inline-block mx-2'
+                    />
                   </div>
-                </td>
-              </tr>
+                  <div className="font-semibold">Mood Score:</div>
+                  <div className="pl-2">{journalEntry.journalentry_mood_score}</div>
+
+                  <div className="font-semibold">Date:</div>
+                  <div className="pl-2">{formatDate(journalEntry.journalentry_created_at)}</div>
+
+                  <div className="flex space-x-2 pt-3">
+                    <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
+                    <button
+                      className="btn btn-danger border-2 px-1 rounded-md"
+                      onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
             ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   )
 }

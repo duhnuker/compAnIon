@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Landing = () => {
@@ -7,7 +6,7 @@ const Landing = () => {
       <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
         <div>
         </div>
-        <div className='flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center mt-10'>
           <h1 className='text-white text-5xl animate-fade-down'>Comp<span className='text-red-800 animate-fade-down'>A</span>n<span className='text-red-800 animate-fade-down'>I</span>on</h1>
           <p className='text-white pt-16 md:text-2xl text-xl text-center animate-fade-down'>Your safe space, Always with you</p>
         </div>

@@ -52,9 +52,9 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     <div className='text-white h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-24'>
       <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
         <div></div>
-        <div className='flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center text-center mt-20'>
           <Navigation />
-          <h1 className='text-white text-5xl animate-fade-down'>Welcome, <span className='text-white'>{name}</span></h1>
+          <h1 className='text-white text-5xl animate-fade-down text-center'>Welcome, <span className='text-white'>{name}</span></h1>
           <h2 className='mt-20 text-lg font-bold animate-fade animate-delay-1000'>How are you feeling?</h2>
         </div>
         <div></div>

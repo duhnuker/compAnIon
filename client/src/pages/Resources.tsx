@@ -54,7 +54,7 @@ const Resources = () => {
     }, [resources]);
 
     return (
-      <div className='space-y-4 mt-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
         {resources.map((resource, index) => (
           <div key={index} className='text-center p-4 border border-gray-700 rounded-lg'>
             <h3 className='font-semibold mb-2'>{resource}</h3>
@@ -134,9 +134,11 @@ const Resources = () => {
 
   return (
     <div className='animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 min-h-screen text-white flex flex-col'>
-      <Navigation />
-      <div className='flex-grow flex flex-col items-center p-6'>
-        <h1 className='text-2xl font-bold my-40 animate-fade animate-delay-1000'>Resources</h1>
+      <div className='text-center'>
+        <Navigation />
+      </div>
+      <div className='flex-grow flex flex-col items-center p-6 mt-10'>
+        <h1 className='text-2xl font-bold my-20 animate-fade animate-delay-1000'>Resources</h1>
         {averageMoodScore !== null && (
           <p className='font-bold text-lg text-center max-w-2xl animate-fade-down'>Based on your average mood score of: {averageMoodScore.toFixed(2)} here are some resources I believe may help!</p>
         )}

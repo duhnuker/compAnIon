@@ -46,38 +46,36 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   };
 
   return (
-    <div className='h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 flex items-center justify-center'>
-      <div className='flex justify-evenly w-full'>
-        <div>
-          <h1 className='text-5xl pb-20 text-white font-bold animate-fade-down'>Welcome back,</h1>
-          <form onSubmit={onSubmitForm}>
+    <div className='min-h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 flex items-center justify-center px-4 py-8'>
+      <div className='flex flex-col-reverse md:flex-row justify-evenly w-full max-w-6xl gap-8'>
+        <div className='w-full md:w-1/2 max-w-md mx-auto'>
+          <h1 className='text-3xl md:text-5xl pb-10 md:pb-20 text-white font-bold animate-fade-down text-center md:text-left'>Welcome back,</h1>
+          <form onSubmit={onSubmitForm} className='flex flex-col items-center md:items-start'>
             <input
-              className='mt-4 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
+              className='w-full max-w-sm mt-4 p-3 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
               type='email'
               name='email'
               placeholder='Email'
               value={email}
               disabled={isLoading}
-              onChange={e => onChange(e)}>
+              onChange={onChange}>
             </input>
-            <br></br>
             <input
-              className='mt-4 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
+              className='w-full max-w-sm mt-4 p-3 rounded-lg bg-black text-white animate-fade-up animate-delay-500'
               type='password'
               name='password'
               placeholder='Password'
               value={password}
               disabled={isLoading}
-              onChange={e => onChange(e)}>
+              onChange={onChange}>
             </input>
-            <br></br>
-            <div>
+            <div className='w-full max-w-sm mt-6 flex justify-center md:justify-start'>
               <button
-                className='mt-3 py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300 animate-fade-up animate-delay-500 disabled:opacity-50'
+                className='w-full md:w-auto py-2 px-6 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300 animate-fade-up animate-delay-500 disabled:opacity-50'
                 disabled={isLoading}
               >
                 {isLoading ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center gap-2">
                     <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -90,13 +88,15 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
               </button>
             </div>
           </form>
-          <p className='text-white pt-10 animate-fade-up animate-delay-500'>Don't have an account?</p>
-          <div className='text-white pt-4 animate-fade-up animate-delay-500'>
-            <Link to="/register" className='py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300'>Register here!</Link>
+          <div className='text-center md:text-left'>
+            <p className='text-white pt-8 animate-fade-up animate-delay-500'>Don't have an account?</p>
+            <div className='text-white pt-4 animate-fade-up animate-delay-500'>
+              <Link to="/register" className='inline-block py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300'>Register here!</Link>
+            </div>
           </div>
         </div>
-        <div className='text-white bg-transparent'>
-          <img src='compAnIonlogo.jpg' className='w-[400px] h-[400px] opacity-20' alt="compAnIon logo"></img>
+        <div className='text-white bg-transparent flex justify-center items-center mb-8 md:mb-0'>
+          <img src='compAnIonlogo.jpg' className='w-[200px] h-[200px] md:w-[400px] md:h-[400px] opacity-20' alt="compAnIon logo"></img>
         </div>
       </div>
     </div>
