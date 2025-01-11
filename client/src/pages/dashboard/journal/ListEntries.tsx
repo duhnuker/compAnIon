@@ -53,7 +53,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
   }, [allJournalEntries]);
 
   return (
-    <div className='animate-fade animate-delay-1000 overflow-x-auto'>
+    <div className='animate-fade animate-delay-1000 overflow-x-auto container mx-auto px-4'>
       <div className="min-w-full">
         {/* Large screens - table view */}
         <table className="hidden md:table w-full mt-5 border-collapse">

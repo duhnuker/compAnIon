@@ -47,17 +47,16 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     getProfile();
     setJournalEntriesUpdate(false);
   }, [journalEntriesUpdate]);
-
-  return (
-    <div className='text-white h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-24'>
-      <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
-        <div></div>
-        <div className='flex flex-col items-center justify-center text-center mt-20'>
-          <Navigation />
-          <h1 className='text-white text-5xl animate-fade-down text-center'>Welcome, <span className='text-white'>{name}</span></h1>
-          <h2 className='mt-20 text-lg font-bold animate-fade animate-delay-1000'>How are you feeling?</h2>
-        </div>
-        <div></div>
+    return (
+      <div className='text-white min-h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-12 md:pt-24'>
+        <div className='h-full grid grid-cols-1 md:grid-cols-3 gap-4 px-4 md:px-0'>
+          <div className='hidden md:block'></div>
+          <div className='flex flex-col items-center justify-center text-center mt-8 md:mt-20'>
+            <Navigation />
+            <h1 className='text-white text-3xl md:text-5xl animate-fade-down text-center'>Welcome, <span className='text-white'>{name}</span></h1>
+            <h2 className='mt-10 md:mt-20 mb-10 text-lg font-bold animate-fade animate-delay-1000'>How are you feeling?</h2>
+          </div>
+          <div className='hidden md:block'></div>
         <div></div>
         <div className='flex flex-col items-center justify-center'>
           <InputEntry setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)} />
