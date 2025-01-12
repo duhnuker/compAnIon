@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (value: boolean) => void }) => {
 
   const [journalEntry, setJournalEntry] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,6 +25,8 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
 
       setJournalEntriesUpdate(true);
       setJournalEntry("");
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
 
     } catch (error: any) {
       console.error(error.message);
@@ -45,6 +48,11 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
           Add
         </button>
       </form>
+      {showSuccess && (
+        <div className="mt-4 p-2 bg-green-500 text-white rounded-md animate-fade">
+          Entry added successfully!
+        </div>
+      )}
     </div>
   )
 }
