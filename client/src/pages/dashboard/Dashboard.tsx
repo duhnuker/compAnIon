@@ -61,7 +61,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     setJournalEntriesUpdate(false);
   }, [journalEntriesUpdate]);
   return (
-    <div className='text-white min-h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-12 md:pt-24'>
+    <div className='text-white min-h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-32 md:pt-40'>
       <div className='h-full flex flex-col items-center gap-4 px-4 md:px-0'>
         <div className='flex flex-col items-center justify-center text-center mt-8 md:mt-20'>
           <Navigation />
