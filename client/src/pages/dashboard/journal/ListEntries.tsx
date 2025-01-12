@@ -56,36 +56,39 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
     <div className='animate-fade animate-delay-1000 overflow-x-auto container mx-auto px-4'>
       <div className="min-w-full">
         {/* Large screens - table view */}
-        <table className="hidden md:table w-full mt-5 border-collapse">
+        <table className="hidden md:table w-full mt-5 border-collapse bg-opacity-20 bg-gray-800 rounded-lg overflow-hidden">
           <thead>
-            <tr>
-              <th className='text-lg p-2 border'>Description</th>
-              <th className='text-lg p-2 border'>Mood</th>
-              <th className='text-lg p-2 border'>Mood Score</th>
-              <th className='text-lg p-2 border'>Date created</th>
-              <th className='text-lg p-2 border'>Actions</th>
+            <tr className="bg-opacity-30 bg-gray-700">
+              <th className='text-lg p-3 font-semibold text-left border-b border-gray-600'>Description</th>
+              <th className='text-lg p-3 font-semibold text-left border-b border-gray-600'>Mood</th>
+              <th className='text-lg p-3 font-semibold text-left border-b border-gray-600'>Mood Score</th>
+              <th className='text-lg p-3 font-semibold text-left border-b border-gray-600'>Date created</th>
+              <th className='text-lg p-3 font-semibold text-left border-b border-gray-600'>Actions</th>
             </tr>
           </thead>
           <tbody>
             {journalEntries.length !== 0 &&
               journalEntries[0].journalentry_id !== null &&
               journalEntries.map(journalEntry => (
-                <tr key={journalEntry.journalentry_id}>
-                  <td className='p-2 border'>{journalEntry.journalentry_text}</td>
-                  <td className='p-2 border'>{journalEntry.journalentry_mood}
-                    <img
-                      src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
-                      alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
-                      className='w-6 h-6 inline-block mx-2'
-                    />
+                <tr key={journalEntry.journalentry_id} className="hover:bg-opacity-20 hover:bg-gray-700 transition-colors duration-200">
+                  <td className='p-3 border-b border-gray-600'>{journalEntry.journalentry_text}</td>
+                  <td className='p-3 border-b border-gray-600'>
+                    <div className="flex items-center">
+                      {journalEntry.journalentry_mood}
+                      <img
+                        src={journalEntry.journalentry_mood === 'NEGATIVE' ? "negative.svg" : "positive.svg"}
+                        alt={journalEntry.journalentry_mood === 'POSITIVE' ? "Sad Face" : "Smiley Face"}
+                        className='w-6 h-6 ml-2'
+                      />
+                    </div>
                   </td>
-                  <td className='p-2 border text-center'>{journalEntry.journalentry_mood_score}</td>
-                  <td className='p-2 border'>{formatDate(journalEntry.journalentry_created_at)}</td>
-                  <td className='p-2 border'>
-                    <div className='flex flex-row space-x-2 justify-start items-center'>
+                  <td className='p-3 border-b border-gray-600'>{journalEntry.journalentry_mood_score}</td>
+                  <td className='p-3 border-b border-gray-600'>{formatDate(journalEntry.journalentry_created_at)}</td>
+                  <td className='p-3 border-b border-gray-600'>
+                    <div className='flex gap-2'>
                       <EditEntry journalEntry={journalEntry} setJournalEntriesUpdate={setJournalEntriesUpdate} />
                       <button
-                        className="btn btn-danger border-2 p-1 rounded-md"
+                        className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-md transition-colors duration-200"
                         onClick={() => deleteJournalEntry(journalEntry.journalentry_id)}
                       >
                         Delete
@@ -96,6 +99,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
               ))}
           </tbody>
         </table>
+
 
         {/* Mobile view - card layout */}
         <div className="md:hidden space-y-4 mt-5">
