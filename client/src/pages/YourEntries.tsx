@@ -24,19 +24,23 @@ const YourEntries = () => {
   }, [journalEntriesUpdate])
 
   return (
-    <div className='text-white h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-20'>
-      <div className='text-center'>
-        <Navigation />
+    <>
+      <div className='fixed inset-0 animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 -z-10' />
+      <div className='text-white w-full pt-20'>
+        <div className='text-center'>
+          <Navigation />
+        </div>
+        <div className="container mx-auto px-4 pt-2 mb-24">
+          <h1 className="text-3xl font-bold my-6 text-center animate-fade-down">Your Entries</h1>
+          <ListEntries
+            allJournalEntries={allJournalEntries}
+            setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)}
+          />
+        </div>
       </div>
-      <div className="container mx-auto px-4 pt-2 mb-24">
-        <h1 className="text-3xl font-bold my-6 text-center animate-fade-down">Your Entries</h1>
-        <ListEntries
-          allJournalEntries={allJournalEntries}
-          setJournalEntriesUpdate={() => setJournalEntriesUpdate(true)}
-        />
-      </div>
-    </div>
+    </>
   )
+
 }
 
 export default YourEntries
