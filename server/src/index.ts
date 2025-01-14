@@ -20,10 +20,10 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 export const pool = new Pool({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_NAME,
-    password: process.env.PG_PASSWORD,
+    connectionString: process.env.SUPABASE_DB_URL,
+    user: process.env.SUPABASE_DB_USER,
+    host: process.env.SUPABASE_DB_HOST,
+    database: process.env.SUPABASE_DB_NAME,
     port: 5432
 });
 
