@@ -1,0 +1,19 @@
+branch-defaults:
+  main:
+    environment: companion-env
+    group_suffix: null
+
+global:
+  application_name: companion
+  default_platform: Node.js 18
+  default_region: ap-southeast-2
+  include_git_submodules: true
+  platform_name: null
+  platform_version: null
+  workspace_type: Application
+
+option_settings:
+  aws:autoscaling:launchconfiguration:
+    InstanceType: t2.micro
+  aws:elasticbeanstalk:environment:
+    EnvironmentType: SingleInstance
