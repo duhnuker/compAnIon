@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataChart from '../components/DataChart';
 import Navigation from '../components/Navigation';

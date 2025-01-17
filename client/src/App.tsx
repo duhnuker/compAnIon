@@ -8,7 +8,6 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import YourProgress from "./pages/YourProgress";
 import Resources from "./pages/Resources";
-import JournalEntries from "./pages/YourEntries";
 import YourEntries from "./pages/YourEntries";
 
 function App() {
