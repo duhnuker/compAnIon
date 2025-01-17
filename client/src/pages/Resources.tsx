@@ -8,7 +8,6 @@ import animationData from '../../public/heart-animation.json';
 const Resources = () => {
 
   const [averageMoodScore, setAverageMoodScore] = useState<number | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
   const fetchRelevantVideo = async (resourceTitle: string): Promise<string> => {
@@ -84,7 +83,6 @@ const Resources = () => {
     if (!localStorage.token) {
       navigate('/login')
     } else {
-      setIsAuthenticated(true);
       fetchAverageMoodScore();
     }
   }, [navigate]);

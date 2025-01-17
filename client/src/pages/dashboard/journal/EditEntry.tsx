@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: any, setJournalEntriesUpdate: (update: boolean) => void }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [journalentry_text, setJournalentry_text] = useState(journalEntry.journalentry_text);
+    const navigate = useNavigate();
 
     const editJournalEntry = async (id: string) => {
         try {
@@ -36,6 +38,12 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
         setIsModalOpen(false);
         setJournalentry_text(journalEntry.journalentry_text);
     }
+
+    useEffect(() => {
+        if (!localStorage.token) {
+            navigate('/login');
+        }
+    }, [navigate]);
 
     return (
         <div>

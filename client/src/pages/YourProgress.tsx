@@ -5,20 +5,13 @@ import Navigation from '../components/Navigation';
 
 const YourProgress = () => {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.token) {
-      navigate('/login')
-    } else {
-      setIsAuthenticated(true);
+      navigate('/login');
     }
   }, [navigate]);
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   return (
     <div className='text-center'>

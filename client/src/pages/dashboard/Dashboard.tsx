@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import InputEntry from './journal/InputEntry';
@@ -9,6 +10,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   const [name, setName] = useState("");
   const [journalEntriesUpdate, setJournalEntriesUpdate] = useState(false);
   const [recentEntry, setRecentEntry] = useState<any>(null);
+  const navigate = useNavigate();
 
   const getProfile = async () => {
     try {
@@ -56,10 +58,17 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   };
 
   useEffect(() => {
+    if (!localStorage.token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     getProfile();
     getRecentEntry();
     setJournalEntriesUpdate(false);
   }, [journalEntriesUpdate]);
+  
   return (
     <div className='text-white min-h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-32 md:pt-40'>
       <div className='h-full flex flex-col items-center gap-4 px-4 md:px-0'>

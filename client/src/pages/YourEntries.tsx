@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ListEntries from './dashboard/journal/ListEntries'
 import Navigation from '../components/Navigation'
@@ -6,6 +7,7 @@ import Navigation from '../components/Navigation'
 const YourEntries = () => {
   const [allJournalEntries, setAllJournalEntries] = useState<any[]>([])
   const [journalEntriesUpdate, setJournalEntriesUpdate] = useState(false)
+  const navigate = useNavigate();
 
   const getJournalEntries = async () => {
     try {
@@ -17,6 +19,12 @@ const YourEntries = () => {
       console.error(error)
     }
   }
+
+  useEffect(() => {
+    if (!localStorage.token) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     getJournalEntries()

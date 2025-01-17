@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import EditEntry from './EditEntry';
 import '../../../index.css';
@@ -14,6 +15,7 @@ const formatDate = (dateString: string) => {
 
 const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJournalEntries: any[], setJournalEntriesUpdate: () => void }) => {
   const [journalEntries, setJournalEntries] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   const getEntries = async () => {
     try {
@@ -43,6 +45,12 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
       }
     }
   }
+
+  useEffect(() => {
+    if (!localStorage.token) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     getEntries();

@@ -1,10 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (value: boolean) => void }) => {
 
   const [journalEntry, setJournalEntry] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +34,12 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
       console.error(error.message);
     }
   }
+
+  useEffect(() => {
+    if (!localStorage.token) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   return (
     <div className='w-full max-w-xl px-4 md:px-0 mx-auto'>
