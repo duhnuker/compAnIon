@@ -12,6 +12,19 @@ import resources from './routes/resources.js';
 
 const app = express();
 
+let lastAccess = Date.now();
+app.use((req, res, next) => {
+    lastAccess = Date.now();
+    next();
+});
+
+setInterval(() => {
+    const idleTime = Date.now() - lastAccess;
+    if (idleTime > 900000) {
+        process.exit(0);
+    }
+}, 60000);
+
 declare global {
     var gc: (() => void) | undefined;
 }

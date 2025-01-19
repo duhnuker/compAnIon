@@ -7,8 +7,8 @@ export async function analyseSentiment(text: string): Promise<{ label: string; s
   }
   
   const result = await sentimentPipeline(text, {
-    quantized: true,
-    cache: true
+    revision: 'default',
+    quantized: true
   });
   
   const { label, score } = result[0];
