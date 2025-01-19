@@ -11,6 +11,23 @@ import resources from './routes/resources.js';
 
 
 const app = express();
+
+declare global {
+    var gc: (() => void) | undefined;
+}
+
+declare global {
+    var gc: (() => void) | undefined;
+}
+
+if (typeof global.gc === 'function') {
+    setInterval(() => {
+        if (global.gc) {
+            global.gc();
+        }
+    }, 30000);
+}
+
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true

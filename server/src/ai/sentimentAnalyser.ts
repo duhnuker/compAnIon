@@ -6,10 +6,11 @@ export async function analyseSentiment(text: string): Promise<{ label: string; s
     sentimentPipeline = await pipeline('sentiment-analysis');
   }
   
-  const result = await sentimentPipeline(text);
-  const { label, score } = result[0];
-
-  const adjustedScore = 100 - ((1 - score) * 100000);
+  const result = await sentimentPipeline(text, {
+    quantized: true,
+    cache: true
+  });
   
-  return { label, score: adjustedScore};
+  const { label, score } = result[0];
+  return { label, score };
 }
