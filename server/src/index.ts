@@ -42,7 +42,7 @@ if (typeof global.gc === 'function') {
 }
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://companion-umber.vercel.app',
     credentials: true
 }));
 app.use(express.json());
