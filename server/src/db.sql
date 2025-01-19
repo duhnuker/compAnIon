@@ -23,22 +23,4 @@ CREATE TABLE journalentries (
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE moodlogs (
-  moodlog_id UUID DEFAULT uuid_generate_v4(),
-  user_id UUID,
-  moodlog_mood VARCHAR(50) NOT NULL,
-  moodlog_created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (moodlog_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-);
-
-CREATE TABLE insights (
-  insight_id UUID DEFAULT uuid_generate_v4(),
-  user_id UUID,
-  insight_text TEXT NOT NULL,
-  insight_created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (insight_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-);
-
 -- INSERT INTO users (name, email, password) VALUES ('Dinuka', 'dinuka@gmail.com', 'dinuka123');
