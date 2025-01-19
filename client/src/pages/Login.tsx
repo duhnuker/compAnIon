@@ -97,7 +97,7 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
         </div>
         <div className='text-white bg-transparent flex justify-center items-center mb-8 md:mb-0'><a href='/'>
           <img src='compAnIonlogo.jpg' className='w-[200px] h-[200px] md:w-[400px] md:h-[400px] opacity-20' alt="compAnIon logo"></img>
-          </a>
+        </a>
         </div>
       </div>
     </div>

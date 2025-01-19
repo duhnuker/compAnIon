@@ -15,7 +15,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   const getProfile = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/dashboard",
+        "https://companion-production-fbf6.up.railway.app/dashboard",
         {
           headers: { jwt_token: localStorage.token }
         }

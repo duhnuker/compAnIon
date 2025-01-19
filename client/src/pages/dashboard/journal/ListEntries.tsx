@@ -20,7 +20,10 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
   const getEntries = async () => {
     try {
       const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/journalentries", {
-        headers: { jwt_token: localStorage.token }
+        headers: {
+          "Content-Type": "application/json",
+          jwt_token: localStorage.token
+        }
       });
       setJournalEntries(response.data);
     } catch (error) {
@@ -31,7 +34,10 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
   async function deleteJournalEntry(id: string) {
     try {
       await axios.delete(`https://companion-production-fbf6.up.railway.app/dashboard/journalentries/journalentry/${id}`, {
-        headers: { jwt_token: localStorage.token }
+        headers: {
+          "Content-Type": "application/json",
+          jwt_token: localStorage.token
+        }
       });
 
       setJournalEntries(journalEntries.filter((journalEntry: { journalentry_id: string }) => journalEntry.journalentry_id !== id));

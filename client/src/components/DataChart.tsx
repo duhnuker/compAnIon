@@ -15,7 +15,10 @@ const DataChart: React.FC = () => {
       try {
         const response = axios.get("https://companion-production-fbf6.up.railway.app/dashboard/yourprogress", {
           withCredentials: true,
-          headers: { jwt_token: localStorage.token }
+          headers: {
+            "Content-Type": "application/json",
+            jwt_token: localStorage.token
+          }
         });
         const data = (await response).data;
 

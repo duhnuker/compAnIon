@@ -18,9 +18,10 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
         {
           headers: {
             "Content-Type": "application/json",
-            "jwt_token": localStorage.token
+            jwt_token: localStorage.token
           }
-        });
+        }
+      );
 
       const parseResponse = await response.data;
       console.log(parseResponse);

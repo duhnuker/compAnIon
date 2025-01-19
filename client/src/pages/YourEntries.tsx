@@ -12,8 +12,11 @@ const YourEntries = () => {
   const getJournalEntries = async () => {
     try {
       const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/journalentries", {
-        headers: { jwt_token: localStorage.token }
-      })
+        headers: {
+          "Content-Type": "application/json",
+          jwt_token: localStorage.token
+        }
+      });
       setAllJournalEntries(response.data)
     } catch (error) {
       console.error(error)

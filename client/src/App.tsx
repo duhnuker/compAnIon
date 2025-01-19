@@ -23,7 +23,10 @@ function App() {
         "https://companion-production-fbf6.up.railway.app/auth/verify",
         {},
         {
-          headers: { jwt_token: localStorage.getItem("token") }
+          headers: {
+            "Content-Type": "application/json",
+            jwt_token: localStorage.token
+          }
         }
       );
 

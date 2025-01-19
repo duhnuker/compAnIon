@@ -26,7 +26,8 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
           headers: {
             "Content-Type": "application/json"
           }
-        });
+        }
+      );
 
       const parseRes = response.data;
       localStorage.setItem("token", parseRes.jwtToken);

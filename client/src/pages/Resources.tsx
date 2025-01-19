@@ -16,7 +16,10 @@ const Resources = () => {
         params: {
           query: resourceTitle
         },
-        headers: { jwt_token: localStorage.token }
+        headers: {
+          "Content-Type": "application/json",
+          jwt_token: localStorage.token
+        }
       });
       return `https://www.youtube.com/embed/${response.data.videoId}`;
     } catch (error) {
@@ -90,7 +93,10 @@ const Resources = () => {
   const fetchAverageMoodScore = async () => {
     try {
       const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/resources", {
-        headers: { jwt_token: localStorage.token }
+        headers: {
+          "Content-Type": "application/json",
+          jwt_token: localStorage.token
+        }
       });
       const averageToNum = Number(response.data.averageMoodScore);
       setAverageMoodScore(isNaN(averageToNum) ? null : averageToNum);

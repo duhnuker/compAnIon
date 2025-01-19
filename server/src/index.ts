@@ -42,7 +42,7 @@ if (typeof global.gc === 'function') {
 }
 
 app.use(cors({
-    origin: 'https://companion-umber.vercel.app',
+    origin: ['https://companion-umber.vercel.app'],
     credentials: true
 }));
 app.use(express.json());
@@ -51,6 +51,9 @@ const PORT = process.env.PORT || 5000;
 
 export const pool = new Pool({
     connectionString: process.env.SUPABASE_DB_URL,
+    ssl: {
+        rejectUnauthorized: false
+    },
     user: process.env.SUPABASE_DB_USER,
     host: process.env.SUPABASE_DB_HOST,
     database: process.env.SUPABASE_DB_NAME,

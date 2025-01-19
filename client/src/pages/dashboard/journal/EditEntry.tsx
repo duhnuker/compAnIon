@@ -17,7 +17,7 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        "jwt_token": localStorage.token
+                        jwt_token: localStorage.token
                     }
                 }
             );
