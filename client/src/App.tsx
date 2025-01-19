@@ -20,7 +20,7 @@ function App() {
   const checkAuthenticated = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/auth/verify",
+        "https://companion-production-fbf6.up.railway.app/auth/verify",
         {},
         {
           headers: { jwt_token: localStorage.getItem("token") }

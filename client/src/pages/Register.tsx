@@ -20,7 +20,7 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     e.preventDefault();
     try {
       const body = { email, password, name };
-      const response = await axios.post("http://localhost:5000/auth/register",
+      const response = await axios.post("https://companion-production-fbf6.up.railway.app/auth/register",
         body,
         {
           headers: {

@@ -22,7 +22,7 @@ const Login = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     try {
       const body = { email, password };
       const response = await axios.post(
-        "http://localhost:5000/auth/login",
+        "https://companion-production-fbf6.up.railway.app/auth/login",
         body,
         {
           headers: {

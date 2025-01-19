@@ -34,7 +34,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
 
   const getRecentEntry = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/dashboard/journalentries/recent", {
+      const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/journalentries/recent", {
         headers: { jwt_token: localStorage.token }
       });
       setRecentEntry(response.data);

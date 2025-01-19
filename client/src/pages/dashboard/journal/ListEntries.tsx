@@ -19,7 +19,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
 
   const getEntries = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/dashboard/journalentries", {
+      const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/journalentries", {
         headers: { jwt_token: localStorage.token }
       });
       setJournalEntries(response.data);
@@ -30,7 +30,7 @@ const ListEntries = ({ allJournalEntries, setJournalEntriesUpdate }: { allJourna
 
   async function deleteJournalEntry(id: string) {
     try {
-      await axios.delete(`http://localhost:5000/dashboard/journalentries/journalentry/${id}`, {
+      await axios.delete(`https://companion-production-fbf6.up.railway.app/dashboard/journalentries/journalentry/${id}`, {
         headers: { jwt_token: localStorage.token }
       });
 

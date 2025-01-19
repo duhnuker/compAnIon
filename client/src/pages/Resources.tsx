@@ -12,7 +12,7 @@ const Resources = () => {
 
   const fetchRelevantVideo = async (resourceTitle: string): Promise<string> => {
     try {
-      const response = await axios.get(`http://localhost:5000/dashboard/resources/youtube-search`, {
+      const response = await axios.get(`https://companion-production-fbf6.up.railway.app/dashboard/resources/youtube-search`, {
         params: {
           query: resourceTitle
         },
@@ -89,7 +89,7 @@ const Resources = () => {
 
   const fetchAverageMoodScore = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/dashboard/resources", {
+      const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/resources", {
         headers: { jwt_token: localStorage.token }
       });
       const averageToNum = Number(response.data.averageMoodScore);
