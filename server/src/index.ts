@@ -42,7 +42,7 @@ if (typeof global.gc === 'function') {
 }
 
 app.use(cors({
-    origin: ['https://companion-umber.vercel.app'],
+    origin: ['https://companion-umber.vercel.app', 'https://companion-production-fbf6.up.railway.app'],
     credentials: true
 }));
 app.use(express.json());
