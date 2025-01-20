@@ -42,7 +42,7 @@ if (typeof global.gc === 'function') {
 }
 
 app.use(cors({
-    origin: ['https://companion-umber.vercel.app', 'https://companion-production-fbf6.up.railway.app'],
+    origin: ['https://companion-umber.vercel.app'],
     credentials: true
 }));
 app.use(express.json());
@@ -50,7 +50,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 export const pool = new Pool({
-    connectionString: process.env.SUPABASE_DB_URL,
+    connectionString: `postgresql://postgres:${process.env.POSTGRES_PASSWORD}@db.lperghagenxoivbquvdm.supabase.co:5432/postgres`,
     ssl: {
         rejectUnauthorized: false
     },
