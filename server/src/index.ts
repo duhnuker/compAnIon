@@ -57,7 +57,7 @@ export const pool = new Pool({
     host: process.env.SUPABASE_DB_HOST,
     database: process.env.SUPABASE_DB_NAME,
     password: process.env.SUPABASE_PASSWORD,
-    port: 5432
+    port: 5432,
 });
 
 app.use("/auth", jwtAuth);
@@ -66,6 +66,6 @@ app.use("/dashboard/journalentries", journalEntries);
 app.use("/dashboard/yourprogress", yourProgress);
 app.use("/dashboard/resources", resources)
 
-app.listen(PORT, () => {
+app.listen(Number(PORT), '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
