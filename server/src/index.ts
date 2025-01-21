@@ -50,14 +50,10 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 export const pool = new Pool({
+    connectionString: `postgresql://postgres.lperghagenxoivbquvdm:${process.env.SUPABASE_PASSWORD}@aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres`,
     ssl: {
         rejectUnauthorized: false
-    },
-    user: process.env.SUPABASE_DB_USER,
-    host: process.env.SUPABASE_DB_HOST,
-    database: process.env.SUPABASE_DB_NAME,
-    password: process.env.SUPABASE_PASSWORD,
-    port: 5432,
+    }
 });
 
 app.use("/auth", jwtAuth);
