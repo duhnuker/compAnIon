@@ -12,7 +12,7 @@ const Resources = () => {
 
   const fetchRelevantVideo = async (resourceTitle: string): Promise<string> => {
     try {
-      const response = await axios.get(`https://companion-production-fbf6.up.railway.app/dashboard/resources/youtube-search`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/resources/youtube-search`, {
         params: {
           query: resourceTitle
         },
@@ -92,7 +92,7 @@ const Resources = () => {
 
   const fetchAverageMoodScore = async () => {
     try {
-      const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/resources", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/resources`, {
         headers: {
           "Content-Type": "application/json",
           jwt_token: localStorage.token

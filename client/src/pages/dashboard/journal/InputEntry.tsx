@@ -13,7 +13,7 @@ const InputEntry = ({ setJournalEntriesUpdate }: { setJournalEntriesUpdate: (val
     try {
       const body = { journalEntry };
       const response = await axios.post(
-        "https://companion-production-fbf6.up.railway.app/dashboard/journalentry",
+        `${import.meta.env.VITE_API_URL}/dashboard/journalentry`,
         body,
         {
           headers: {

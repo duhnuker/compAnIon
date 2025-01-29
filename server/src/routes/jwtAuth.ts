@@ -16,43 +16,45 @@ interface User {
 
 //Register
 router.post("/register", validateInfo, async (req: Request, res: Response) => {
-
     const { name, email, password } = req.body;
-
     try {
-        
-        const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [email]);
+        console.log("Starting registration process for:", email);
 
-        //Check if user already exists
+        const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [email]);
+        console.log("User query completed");
+
         if (user.rows.length > 0) {
             return res.status(409).send("User already exists");
         }
 
-        //Bcrypt user password
         const salt = await bcrypt.genSalt(10);
         const bcryptPassword = await bcrypt.hash(password, salt);
+        console.log("Password hashed successfully");
 
-        //Add new user to database
-        let newUser = await pool.query("INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *", [name, email, bcryptPassword]);
+        let newUser = await pool.query(
+            "INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *",
+            [name, email, bcryptPassword]
+        );
+        console.log("New user created successfully");
 
         const jwtToken = jwtGenerator(newUser.rows[0].user_id);
         return res.json({ jwtToken });
 
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.error(error.message);
-        } else {
-            console.error("An unknown error occurred");
+            console.error("Registration failed:", error.message);
+            console.error("Full error:", error);
         }
         res.status(500).send("Server Error");
     }
-
 });
+
+
 router.post("/login", validateInfo, async (req: Request, res: Response) => {
     const { email, password } = req.body as { email: string; password: string };
 
     try {
-        
+
         const user = await pool.query<User>("SELECT * FROM users WHERE user_email = $1", [email]);
 
         if (user.rows.length === 0) {

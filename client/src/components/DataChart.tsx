@@ -13,7 +13,7 @@ const DataChart: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = axios.get("https://companion-production-fbf6.up.railway.app/dashboard/yourprogress", {
+        const response = axios.get(`${import.meta.env.VITE_API_URL}/dashboard/yourprogress`, {
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",

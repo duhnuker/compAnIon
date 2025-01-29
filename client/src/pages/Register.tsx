@@ -20,12 +20,13 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     e.preventDefault();
     try {
       const body = { email, password, name };
-      const response = await axios.post("https://companion-production-fbf6.up.railway.app/auth/register",
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`,
         body,
         {
           headers: {
             "Content-Type": "application/json"
-          }
+          },
+          withCredentials: true
         }
       );
 
@@ -34,13 +35,14 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
       setAuth(true);
 
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.error(err.message);
+      if (axios.isAxiosError(err)) {
+        console.error(err.response?.data || err.message);
       } else {
         console.error('An unknown error occurred');
       }
     }
   };
+
 
   return (
     <div className='min-h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 flex items-center justify-center px-4 py-8'>

@@ -12,7 +12,7 @@ const EditEntry = ({ journalEntry, setJournalEntriesUpdate }: { journalEntry: an
 
             const body = { journalentry_text };
 
-            await axios.put(`https://companion-production-fbf6.up.railway.app/dashboard/journalentries/journalentry/${id}`,
+            await axios.put(`${import.meta.env.VITE_API_URL}/dashboard/journalentries/journalentry/${id}`,
                 body,
                 {
                     headers: {

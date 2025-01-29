@@ -20,7 +20,7 @@ function App() {
   const checkAuthenticated = async () => {
     try {
       const response = await axios.post(
-        "https://companion-production-fbf6.up.railway.app/auth/verify",
+        `${import.meta.env.VITE_API_URL}/auth/verify`,
         {},
         {
           headers: {

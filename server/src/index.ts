@@ -42,17 +42,30 @@ if (typeof global.gc === 'function') {
 }
 
 app.use(cors({
-    origin: ['https://companion-umber.vercel.app', 'http://localhost:5173'],
-    credentials: true
+    origin: ['https://companion-umber.vercel.app', 'https://companion-production-fbf6.up.railway.app', 'http://localhost:5173'],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
 export const pool = new Pool({
-    connectionString: `postgresql://postgres.lperghagenxoivbquvdm:${process.env.SUPABASE_PASSWORD}@aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres`,
     ssl: {
         rejectUnauthorized: false
+    },
+    user: process.env.SUPABASE_DB_USER,
+    host: process.env.SUPABASE_DB_HOST,
+    database: process.env.SUPABASE_DB_NAME,
+    password: process.env.SUPABASE_PASSWORD,
+    port: 5432,
+});
+
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('Database connection error:', err);
+    } else {
+        console.log('Database connected successfully');
     }
 });
 

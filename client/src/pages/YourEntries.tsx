@@ -11,7 +11,7 @@ const YourEntries = () => {
 
   const getJournalEntries = async () => {
     try {
-      const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/journalentries", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/journalentries`, {
         headers: {
           "Content-Type": "application/json",
           jwt_token: localStorage.token

@@ -15,7 +15,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
   const getProfile = async () => {
     try {
       const response = await axios.get(
-        "https://companion-production-fbf6.up.railway.app/dashboard",
+        `${import.meta.env.VITE_API_URL}/dashboard`,
         {
           headers: { jwt_token: localStorage.token }
         }
@@ -34,7 +34,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
 
   const getRecentEntry = async () => {
     try {
-      const response = await axios.get("https://companion-production-fbf6.up.railway.app/dashboard/journalentries/recent", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/journalentries/recent`, {
         headers: { jwt_token: localStorage.token }
       });
       setRecentEntry(response.data);
