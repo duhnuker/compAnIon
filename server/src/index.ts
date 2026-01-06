@@ -43,8 +43,8 @@ if (typeof global.gc === 'function') {
 
 app.use(cors({
     origin: [
-        'https://companion-umber.vercel.app', 
-        'https://companion-production-fbf6.up.railway.app', 
+        'https://companion-umber.vercel.app',
+        'https://companion-production-fbf6.up.railway.app',
         'http://localhost:5173'
     ],
     credentials: true,
@@ -80,6 +80,16 @@ app.use("/dashboard", dashboard);
 app.use("/dashboard/journalentries", journalEntries);
 app.use("/dashboard/yourprogress", yourProgress);
 app.use("/dashboard/resources", resources)
+
+app.get('/health', async (req, res) => {
+    try {
+        await pool.query('SELECT NOW()');
+        res.status(200).send('OK');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error');
+    }
+});
 
 app.listen(Number(PORT), '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
