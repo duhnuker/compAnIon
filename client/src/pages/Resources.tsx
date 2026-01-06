@@ -12,7 +12,7 @@ const Resources = () => {
 
   const fetchRelevantVideo = async (resourceTitle: string): Promise<string> => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/resources/youtube-search`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/dashboard/resources/youtube-search`, {
         params: {
           query: resourceTitle
         },
@@ -34,22 +34,27 @@ const Resources = () => {
 
     useEffect(() => {
       const loadVideos = async () => {
-        const videoMap: Record<string, string> = {};
         const loadingMap: Record<string, boolean> = {};
-
         resources.forEach(resource => {
           loadingMap[resource] = true;
         });
         setLoadingVideos(loadingMap);
 
-        for (const resource of resources) {
+        const videoPromises = resources.map(async (resource) => {
           const videoUrl = await fetchRelevantVideo(resource);
+          return { resource, videoUrl };
+        });
+
+        const results = await Promise.all(videoPromises);
+
+        const videoMap: Record<string, string> = {};
+        results.forEach(( { resource, videoUrl }) => {
           videoMap[resource] = videoUrl;
           setLoadingVideos(prev => ({
             ...prev,
             [resource]: false
           }));
-        }
+        });
         setVideoUrls(videoMap);
       };
       loadVideos();
@@ -92,7 +97,7 @@ const Resources = () => {
 
   const fetchAverageMoodScore = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/resources`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/dashboard/resources`, {
         headers: {
           "Content-Type": "application/json",
           jwt_token: localStorage.token

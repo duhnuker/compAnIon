@@ -11,7 +11,7 @@ const YourEntries = () => {
 
   const getJournalEntries = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/journalentries`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/dashboard/journalentries`, {
         headers: {
           "Content-Type": "application/json",
           jwt_token: localStorage.token

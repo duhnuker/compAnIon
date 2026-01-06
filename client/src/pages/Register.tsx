@@ -20,7 +20,7 @@ const Register = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     e.preventDefault();
     try {
       const body = { email, password, name };
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`,
+      const response = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/auth/register`,
         body,
         {
           headers: {

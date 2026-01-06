@@ -55,7 +55,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 export const pool = new Pool({
-    ssl: {
+    ssl: process.env.SUPABASE_DB_HOST === 'localhost' ? undefined : {
         rejectUnauthorized: false
     },
     user: String(process.env.SUPABASE_DB_USER),
@@ -64,6 +64,8 @@ export const pool = new Pool({
     password: String(process.env.SUPABASE_PASSWORD),
     port: 5432,
 });
+
+console.log(`Attempting to connect to database at ${process.env.SUPABASE_DB_HOST} as ${process.env.SUPABASE_DB_USER}`);
 
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
