@@ -43,19 +43,7 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     }
   };
 
-  const logout = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    try {
-      localStorage.removeItem("token");
-      setAuth(false);
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      } else {
-        console.error('An unknown error occurred');
-      }
-    }
-  };
+
 
   useEffect(() => {
     if (!localStorage.token) {
@@ -68,12 +56,12 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
     getRecentEntry();
     setJournalEntriesUpdate(false);
   }, [journalEntriesUpdate]);
-  
+
   return (
     <div className='text-white min-h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 pt-32 md:pt-40'>
       <div className='h-full flex flex-col items-center gap-4 px-4 md:px-0'>
         <div className='flex flex-col items-center justify-center text-center mt-8 md:mt-20'>
-          <Navigation />
+          <Navigation setAuth={setAuth} />
           <h1 className='text-white text-3xl md:text-5xl animate-fade-down text-center'>Welcome, <span className='text-white'>{name}</span></h1>
           <h2 className='mt-10 md:mt-20 mb-10 text-lg font-bold animate-fade animate-delay-1000'>How are you feeling?</h2>
         </div>
@@ -98,12 +86,6 @@ const Dashboard = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
         )}
 
         <div className='mt-8 mb-8'>
-          <button
-            onClick={e => logout(e)}
-            className='py-2 px-4 rounded-2xl border-2 border-red-900 bg-black text-white hover:bg-red-950 hover:text-red-100 transition-colors duration-300 animate-fade animate-delay-1000'
-          >
-            Logout
-          </button>
         </div>
       </div>
     </div>

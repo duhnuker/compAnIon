@@ -5,6 +5,7 @@ import axios from "axios";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import GuestLogin from "./pages/GuestLogin";
 import Dashboard from "./pages/dashboard/Dashboard";
 import YourProgress from "./pages/YourProgress";
 import Resources from "./pages/Resources";
@@ -49,10 +50,11 @@ function App() {
         <Route path="/" element={!isAuthenticated ? <Landing /> : <Navigate to="/dashboard" />} />
         <Route path="/login" element={!isAuthenticated ? <Login setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!isAuthenticated ? <Register setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
-        <Route path="/dashboard" element={isAuthenticated ? <Dashboard setAuth={setAuth} /> : <Navigate to="/login" />} />
-        <Route path="/journalentries" element={isAuthenticated ? <YourEntries /> : <Navigate to="/login" />} />
-        <Route path="/yourprogress" element={isAuthenticated ? <YourProgress /> : <Navigate to="/login" />} />
-        <Route path="/resources" element={isAuthenticated ? <Resources /> : <Navigate to="/login" />} />
+        <Route path="/guest-login" element={!isAuthenticated ? <GuestLogin setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={isAuthenticated ? <Dashboard setAuth={setAuth} /> : <Navigate to="/" />} />
+        <Route path="/journalentries" element={isAuthenticated ? <YourEntries setAuth={setAuth} /> : <Navigate to="/" />} />
+        <Route path="/yourprogress" element={isAuthenticated ? <YourProgress setAuth={setAuth} /> : <Navigate to="/" />} />
+        <Route path="/resources" element={isAuthenticated ? <Resources setAuth={setAuth} /> : <Navigate to="/" />} />
       </Routes>
     </Router>
   );

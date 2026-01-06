@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DataChart from '../components/DataChart';
 import Navigation from '../components/Navigation';
 
-const YourProgress = () => {
+const YourProgress = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
 
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ const YourProgress = () => {
 
   return (
     <div className='text-center'>
-      <Navigation />
+      <Navigation setAuth={setAuth} />
       <DataChart />
     </div>
   )

@@ -5,7 +5,7 @@ import Navigation from '../components/Navigation';
 import Lottie from 'lottie-react';
 import animationData from '../../public/heart-animation.json';
 
-const Resources = () => {
+const Resources = ({ setAuth }: { setAuth: (auth: boolean) => void }) => {
 
   const [averageMoodScore, setAverageMoodScore] = useState<number | null>(null);
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Resources = () => {
         const results = await Promise.all(videoPromises);
 
         const videoMap: Record<string, string> = {};
-        results.forEach(( { resource, videoUrl }) => {
+        results.forEach(({ resource, videoUrl }) => {
           videoMap[resource] = videoUrl;
           setLoadingVideos(prev => ({
             ...prev,
@@ -144,7 +144,7 @@ const Resources = () => {
   return (
     <div className='animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2 min-h-screen text-white flex flex-col'>
       <div className='text-center'>
-        <Navigation />
+        <Navigation setAuth={setAuth} />
       </div>
       <div className='flex-grow flex flex-col items-center p-6 mt-10'>
         <h1 className='text-2xl font-bold my-12 sm:my-20 animate-fade animate-delay-1000'>Resources</h1>
