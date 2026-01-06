@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
+import LightPillar from '../components/LightPillar'
 
 const Landing = () => {
   return (
-    <div className='h-screen w-full animated-background bg-gradient-to-r from-midnightp1 via-midnightp1 to-midnightp2'>
-      <div className='h-full grid grid-cols-3 grid-rows-3 gap-4'>
+    <div className='h-screen w-full relative overflow-hidden'>
+      <LightPillar />
+      <div className="absolute inset-0 bg-midnightp1 -z-10"></div>
+
+      <div className='h-full grid grid-cols-3 grid-rows-3 gap-4 relative z-10'>
         <div>
         </div>
         <div className='flex flex-col items-center justify-center mt-10'>
