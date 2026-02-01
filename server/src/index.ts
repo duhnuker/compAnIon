@@ -45,8 +45,10 @@ app.use(cors({
     origin: [
         'https://companion-umber.vercel.app',
         'https://companion-production-fbf6.up.railway.app',
-        'http://localhost:5173'
-    ],
+        'http://localhost:5173',
+        'http://localhost',
+        process.env.CLIENT_URL || ''
+    ].filter(Boolean),
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
